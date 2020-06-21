@@ -2,9 +2,7 @@ name: Flutter CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [ github-actions-ci ]
 
 jobs:
   build:
@@ -16,8 +14,13 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+      - uses: subosito/flutter-action@v1.1.1
         with:
-          channel: 'stable' # or: 'dev' or 'beta'
-      - run: flutter pub get
-      - run: flutter build apk
+          channel: 'stable'
+      - name: Building apk file
+        run: echo $KEY_JKS > /home/runner/work/FlutterBMI/FlutterBMI/android/app/key.jsk && flutter pub get && flutter build apk
+        env:
+          KEY_JKS: ${{ secrets.KEY_JKS }}
+          KEY_PASSWORD: ${{ secrets.ALIAS_PASSWORD }}
+          ALIAS_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+
