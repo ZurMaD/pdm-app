@@ -9,7 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../calculator_brain.dart';
 import '../constants.dart';
-import 'package:bmi_calculator/Global Variables/globals.dart';
+import 'package:bmi_calculator/GlobalVariables/globals.dart';
 
 import 'package:bmi_calculator/Screens/alerts.dart';
 

@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 
 // import '../calculator_brain.dart';
 // import '../constants.dart';
-import 'package:bmi_calculator/Global Variables/globals.dart';
+import 'package:bmi_calculator/GlobalVariables/globals.dart';
 
 
 enum GenderEnum {

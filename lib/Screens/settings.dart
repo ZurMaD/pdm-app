@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/Global%20Variables/globals.dart';
+import 'package:bmi_calculator/GlobalVariables/globals.dart';
 import 'package:bmi_calculator/Utilities/my_theme_keys.dart';
 import 'package:bmi_calculator/Utilities/shared_preference_handler.dart';
 import 'package:bmi_calculator/Utilities/theme_handler.dart';

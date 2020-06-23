@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/Global%20Variables/globals.dart' as prefix0;
+import 'package:bmi_calculator/GlobalVariables/globals.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:launch_review/launch_review.dart';
