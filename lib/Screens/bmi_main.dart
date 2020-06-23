@@ -11,6 +11,8 @@ import '../calculator_brain.dart';
 import '../constants.dart';
 import 'package:bmi_calculator/Global Variables/globals.dart';
 
+import 'package:bmi_calculator/Screens/alerts.dart';
+
 enum GenderEnum {
   Male,
   Female,
@@ -222,7 +224,7 @@ class _MaleState extends State<Male> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  'Age (In Year)',
+                  'Presión arterial',
                   style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),
@@ -349,7 +351,7 @@ class _FemaleState extends State<Female> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Text(
-                    'Weight (Kg)',
+                    'Frecuencia cardíaca',
                     style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: Theme.of(context).accentColor),
@@ -714,7 +716,7 @@ class _GenderState extends State<Gender> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                'Gender',
+                'Género',
                 style: TextStyle(
                     fontWeight: FontWeight.w900,
                     color: Theme.of(context).accentColor),
@@ -723,14 +725,14 @@ class _GenderState extends State<Gender> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Text(
-                      'I\'m',
+                      'Soy',
                       style: TextStyle(
                           fontSize: 60.0,
                           fontWeight: FontWeight.w900,
                           color: Theme.of(context).accentColor),
                     ),
                     Text(
-                      'Female',
+                      'Mujer',
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           color: Theme.of(context).accentColor),
@@ -748,7 +750,7 @@ class _GenderState extends State<Gender> {
                       activeColor: Colors.deepPurple,
                     ),
                     Text(
-                      'Male',
+                      'Hombre',
                       style: TextStyle(
                           fontWeight: FontWeight.w900,
                           color: Theme.of(context).accentColor),

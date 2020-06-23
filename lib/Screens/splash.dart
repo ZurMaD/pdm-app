@@ -39,13 +39,13 @@ class _SplashState extends State<Splash> {
           children: <Widget>[
             Container(
               child: Image.asset(
-                "Assets/Images/fitmen.jpg",
+                "Assets/Images/blood-pressure.jpg",
                 height: double.infinity,
                 width: double.infinity,
                 alignment: Alignment.center,
                 fit: BoxFit.cover,
                 excludeFromSemantics: true,
-                scale: 50.0,
+                scale: 70.0,
               ),
             ),
             Container(
@@ -59,7 +59,7 @@ class _SplashState extends State<Splash> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Calculate your",
+                    "Bienvenido a",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 24.0,
@@ -73,10 +73,23 @@ class _SplashState extends State<Splash> {
                     alignment: AlignmentDirectional.bottomCenter,
                     isRepeatingAnimation: false,
                     textStyle: TextStyle(
-                        color: Colors.green.shade200,
+                        color: Colors.lightBlueAccent.shade400,
                         fontSize: 100.0,
                         fontWeight: FontWeight.w900),
-                    text: <String>["BMI."],
+                    text: <String>["Medic"],
+                  ),
+                  TyperAnimatedTextKit(
+                    duration: Duration(
+                      seconds: 2,
+                    ),
+                    textAlign: TextAlign.start,
+                    alignment: AlignmentDirectional.bottomCenter,
+                    isRepeatingAnimation: false,
+                    textStyle: TextStyle(
+                        color: Colors.lightBlueAccent.shade400,
+                        fontSize: 100.0,
+                        fontWeight: FontWeight.w900),
+                    text: <String>["PUCP"],
                   )
                 ],
               ),

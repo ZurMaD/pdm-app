@@ -1,4 +1,4 @@
-# BMI Calculator
+# MedicPUCP app
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -7,12 +7,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Build Status](https://travis-ci.com/ZurMaD/pdm-app.svg?branch=master)](https://travis-ci.com/ZurMaD/pdm-app)
 
 
 
@@ -20,18 +15,18 @@
 <br />
 <p align="center">
   <a href="https://github.com/Fenil-Nividata/FlutterBMI/blob/master/">
-    <img src="ic_launcher.png">
+    <img src="mp_launcher.png">
   </a>
 
-  <h3 align="center">BMI Calculator</h3>
+  <h3 align="center">MedicPUCP</h3>
 
   <p align="center">
     <br />
-    <a href="https://play.google.com/store/apps/details?id=com.nividata.bmi_calculator&hl=en">View Demo</a>
+    <a href="#">View Demo</a>
     ·
-    <a href="https://github.com/Fenil-Nividata/FlutterBMI/issues">Report Bug</a>
+    <a href="#">Report Bug</a>
     ·
-    <a href="https://github.com/Fenil-Nividata/FlutterBMI/issues">Request Feature</a>
+    <a href="#">Request Feature</a>
   </p>
 </p>
 
@@ -51,55 +46,21 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
 
-## What is BMI?
-Body Mass Index(BMI) is value derived from person's weight and height. The result of BMI measurement can give an idea about weather a person has correct weight for
-their height.
+## What is MedicPUCP App?
 
-## How to Calculate BMI?
-BMI calculation is based on simple formula using person's weight and height.
-The formula for BMI = kg/m2 where kg is person's weight in kilograms and m2 is their height in meters squared. In simplified format it would be
-BMI = (Weight in Kilograms)/(Height in meters * Height in meters)
+[Content]
 
-For example if person's weight is 68kg and height is 172cm then
-BMI = 68/(1.72*2) = 23
+## Cómo funciona la App?
 
-BMI calculator indicate whether person falls under healthy weight, underweight or overweight. If person's BMI is out of healthy range, their health
-risk may significantly increases.
+[Content]
 
-BMI Range for adults
-BMI : weight status
-Below 18.5 : Underweight
-18.5 – 24.9 : Normal or Healthy Weight
-25.0 - 29.9 : Overweight
-30.0 & above: Obese
+## Médicos administrativos de un centro de salud pueden:
 
-## Doctors uses BMI too for
-evalution for diet and physical acitivty
-cadiovascular disease and other health related problems
-measure fat in body
-
-## Health risks for extra weight
-raises blood pressure and cholesterol and triglyceride levels
-it can make diabetes and other health problems
-hypertension or high blood pressure
-type 2 diabetes
-coronary heart disease
-gallbladder disease
-osteoarthritis
-sleep apnea and respiratory problems
-
-## Health risks for under weight
-malnutrition, anemia or vitamin deficiencies
-osteoporosis from too little vitamin D and calcium
-Decreased Immune System
-fertility issues caused by irregular menstrual cycles
-growth and development issues in children and teenagers
-
-## Who shouldn't use a BMI calculator
-BMI should not be used for muscle builders, athletes, pregnant women, the elderly or young children.
-This is because BMI does not take into account whether the weight is carried as muscle or fat it's just the number. Those with a higher muscle mass, such as athletes, may have a high BMI but not be at greater health risk. Those with a lower muscle mass, such as children who have not completed their growth or the elderly who may be losing some muscle mass may have a lower BMI.
+- `1`: `a`
+- `2`: `b`
+- `3`: `c`
 
 ### Built With
 This application built [Flutter](https://flutter.dev/). Flutter is cross-platform open source mobile framework built by Google. Flutter use Dart as a primary language which is highly scalable and easy codebase.
@@ -123,24 +84,19 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See [LICENSE](https://github.com/Fenil-Nividata/FlutterBMI/blob/master/LICENSE) for more information.
-
 <!-- CONTACT -->
-## Contact
+<!-- ## Contact
 
-[Nividata Consultancy](https://www.nividata.com/contact/)
+[Nividata Consultancy](https://www.nividata.com/contact/) -->
 
 ## Developers
 
-### Fenil Patel 
-Contact: [LinkedIn](https://www.linkedin.com/in/fenilpatel23/)
-         [GitHub](https://github.com/Fenscode)
+PDM Grupo3
+
+Contact: [LinkedIn](https://www.linkedin.com/in/fenilpatel23/) 
 
 <!-- ACKNOWLEDGEMENTS -->
-## This app using following awesome open source libraries
+## Esta app está usando los siguientes repositorios open-source.
 
 * [Flutter Responsive Screen](https://pub.dev/packages/flutter_responsive_screen)
 * [Font Awesome Flutter](https://pub.dev/packages/font_awesome_flutter)

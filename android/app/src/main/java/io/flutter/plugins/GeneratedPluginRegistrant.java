@@ -1,7 +1,6 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import com.infideap.drawerbehavior.DrawerbehaviorPlugin;
 import com.appleeducate.getversion.GetVersionPlugin;
 import com.iyaffle.launchreview.LaunchReviewPlugin;
 import io.flutter.plugins.packageinfo.PackageInfoPlugin;
@@ -17,7 +16,6 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    DrawerbehaviorPlugin.registerWith(registry.registrarFor("com.infideap.drawerbehavior.DrawerbehaviorPlugin"));
     GetVersionPlugin.registerWith(registry.registrarFor("com.appleeducate.getversion.GetVersionPlugin"));
     LaunchReviewPlugin.registerWith(registry.registrarFor("com.iyaffle.launchreview.LaunchReviewPlugin"));
     PackageInfoPlugin.registerWith(registry.registrarFor("io.flutter.plugins.packageinfo.PackageInfoPlugin"));

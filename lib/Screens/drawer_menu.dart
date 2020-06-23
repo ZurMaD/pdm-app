@@ -15,6 +15,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:bmi_calculator/Screens/alerts.dart';
+
+
 class DrawerMenu extends StatefulWidget {
   @override
   _DrawerMenuState createState() => _DrawerMenuState();
@@ -46,12 +49,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   final menu = new Menu(
     items: [
-      new MenuItem(id: 'home', title: 'Home'),
-      new MenuItem(id: 'setting', title: 'Settings'),
-      new MenuItem(id: 'aboutapp', title: 'About App'),
-      new MenuItem(id: 'share', title: 'Share App'),
-      new MenuItem(id: 'rateus', title: 'Rate App'),
-      new MenuItem(id: 'feedback', title: 'Send Feedback')
+      new MenuItem(id: 'home', title: 'Inicio'),
+      new MenuItem(id: 'home2', title: 'Alertas'),
+      new MenuItem(id: 'setting', title: 'Configuraciones'),
+      new MenuItem(id: 'aboutapp', title: 'Soporte Técnico'),
+      // new MenuItem(id: 'share', title: 'Share App'),
+      // new MenuItem(id: 'rateus', title: 'Rate App'),
+      // new MenuItem(id: 'feedback', title: 'Send Feedback')
     ],
   );
 
@@ -66,15 +70,24 @@ class _DrawerMenuState extends State<DrawerMenu> {
         children: <Widget>[
           SizedBox(height: 20),
           Image(
-              image: AssetImage("Assets/Images/ic_launcher.png"),
+              image: AssetImage("Assets/Images/mp_launcher.png"),
               filterQuality: FilterQuality.high,
               width: 100.0,
               height: 100.0),
-          Text("  BMI.",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 34.0,
-                  fontWeight: FontWeight.bold))
+          Text(
+            "MedicPUCP",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 34.0,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            " Aplicativo que brinda reporte del kit asociado al dispositivo.",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 10.0,
+                fontWeight: FontWeight.bold),
+          )
         ],
       ),
     );
@@ -91,7 +104,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Text(
-                "Built with  ",
+                "Desarrolado con ",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 10.0,
@@ -103,7 +116,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 size: 10,
               ),
               Text(
-                "  By",
+                "  por",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 10.0,
@@ -115,19 +128,36 @@ class _DrawerMenuState extends State<DrawerMenu> {
           GestureDetector(
             child: Row(
               children: <Widget>[
-                CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: AssetImage("Assets/Images/icon.png")),
-                Text("  NiviData\n  Consultancy",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold))
+                // CircleAvatar(
+                //   radius: 20.0,
+                //   backgroundImage: AssetImage("Assets/Images/icon.png"),
+                // ),
+                Text(
+                  "  PDM\n  Grupo3",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "  &",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "  NiviData\n  Consultancy",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold),
+                ),
               ],
             ),
-            onTap: () {
-              _launchURL();
-            },
+            // onTap: () {
+            //   _launchURL();
+            // },
           ),
         ],
       ),
@@ -158,53 +188,54 @@ class _DrawerMenuState extends State<DrawerMenu> {
       cornerRadius: 20,
       showAppBar: true,
       appBar: AppBarProps(
-          automaticallyImplyLeading: true,
-          primary: true,
-          backgroundColor: Theme.of(context).primaryColorDark,
-          elevation: 1.0,
-          centerTitle: true,
-          title: Text('BMI CALCULATOR',
-              textDirection: TextDirection.ltr,
-              style: TextStyle(
-                  color: Theme.of(context).accentColor,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w900)),
-          actions: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
-              height: MediaQuery.of(context).size.height,
-              child: IconButton(
-                icon: themeIcon != null
-                    ? themeIcon
-                    : new Icon(
-                        FontAwesomeIcons.solidMoon,
-                        color: Colors.transparent,
-                      ),
-                onPressed: () {
-                  setState(() {
-                    if (isDarkTheme) {
-                      isDarkTheme = false;
-                      themeLabel = "Light Mode";
-                      themeIcon = Icon(FontAwesomeIcons.solidMoon,
-                          color: Colors.black38);
-                      _changeTheme(context, MyThemeKeys.LIGHT);
-                      SharedPreference.setStringValue(
-                          SharedPreference.selectedTheme,
-                          MyThemeKeys.LIGHT.toString());
-                    } else {
-                      isDarkTheme = true;
-                      themeLabel = "Dark Mode";
-                      themeIcon = Icon(FontAwesomeIcons.solidSun);
-                      _changeTheme(context, MyThemeKeys.DARKER);
-                      SharedPreference.setStringValue(
-                          SharedPreference.selectedTheme,
-                          MyThemeKeys.DARKER.toString());
-                    }
-                  });
-                },
-              ),
-            )
-          ]),
+        automaticallyImplyLeading: true,
+        primary: true,
+        backgroundColor: Theme.of(context).primaryColorDark,
+        elevation: 1.0,
+        centerTitle: true,
+        title: Text('MedicPUCP SensorKiT',
+            textDirection: TextDirection.ltr,
+            style: TextStyle(
+                color: Theme.of(context).accentColor,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w900)),
+        actions: <Widget>[
+          Container(
+            padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
+            height: MediaQuery.of(context).size.height,
+            child: IconButton(
+              icon: themeIcon != null
+                  ? themeIcon
+                  : new Icon(
+                      FontAwesomeIcons.solidMoon,
+                      color: Colors.transparent,
+                    ),
+              onPressed: () {
+                setState(() {
+                  if (isDarkTheme) {
+                    isDarkTheme = false;
+                    themeLabel = "Light Mode";
+                    themeIcon =
+                        Icon(FontAwesomeIcons.solidMoon, color: Colors.black38);
+                    _changeTheme(context, MyThemeKeys.LIGHT);
+                    SharedPreference.setStringValue(
+                        SharedPreference.selectedTheme,
+                        MyThemeKeys.LIGHT.toString());
+                  } else {
+                    isDarkTheme = true;
+                    themeLabel = "Dark Mode";
+                    themeIcon = Icon(FontAwesomeIcons.solidSun);
+                    _changeTheme(context, MyThemeKeys.DARKER);
+                    SharedPreference.setStringValue(
+                        SharedPreference.selectedTheme,
+                        MyThemeKeys.DARKER.toString());
+                  }
+                },);
+              },
+            ),
+          ),
+        ],
+      ),
       menuView: new MenuView(
         menu: menu,
         headerView: headerView(context),
@@ -213,7 +244,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.fromLTRB(40.0, 16.0, 0.0, 10.0),
         color: Colors.black87,
         background: DecorationImage(
-            image: AssetImage("Assets/Images/fitmen.jpg"),
+            image: AssetImage("Assets/Images/blood-pressure.jpg"),
             colorFilter: ColorFilter.mode(Colors.white54, BlendMode.dstOut),
             fit: BoxFit.cover),
         selectorColor: Color.fromRGBO(67, 193, 152, 1),
@@ -225,6 +256,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
           switch (itemId) {
             case 'home':
               setState(() => _widget = Text("1"));
+              break;
+            case 'home2':
+              setState(() => _widget = Text("2"));
               break;
             case 'setting':
               initMeasurementUnit();

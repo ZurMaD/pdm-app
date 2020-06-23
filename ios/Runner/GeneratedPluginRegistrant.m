@@ -4,12 +4,6 @@
 
 #import "GeneratedPluginRegistrant.h"
 
-#if __has_include(<drawerbehavior/DrawerbehaviorPlugin.h>)
-#import <drawerbehavior/DrawerbehaviorPlugin.h>
-#else
-@import drawerbehavior;
-#endif
-
 #if __has_include(<get_version/GetVersionPlugin.h>)
 #import <get_version/GetVersionPlugin.h>
 #else
@@ -49,7 +43,6 @@
 @implementation GeneratedPluginRegistrant
 
 + (void)registerWithRegistry:(NSObject<FlutterPluginRegistry>*)registry {
-  [DrawerbehaviorPlugin registerWithRegistrar:[registry registrarForPlugin:@"DrawerbehaviorPlugin"]];
   [GetVersionPlugin registerWithRegistrar:[registry registrarForPlugin:@"GetVersionPlugin"]];
   [LaunchReviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"LaunchReviewPlugin"]];
   [FLTPackageInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlugin"]];
