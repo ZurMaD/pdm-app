@@ -85,13 +85,18 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
                 children: <Widget>[
                   // Male/Female selection
                   new Container(
-                      child: new Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[new Male(), new Female()],
-                  )),
-                  new Height(),
-                  new Gender(),
+                    child: new Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        new Male(),
+                        new Female(),
+                      ],
+                    ),
+                  ),
+                  new TemperaturaCorporal(),
+                  // new Height(),
+                  // new Gender(),
                 ],
               ),
             ),
@@ -236,59 +241,60 @@ class _MaleState extends State<Male> {
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      GestureDetector(
-                        child: CircleAvatar(
-                          radius: 20.0,
-                          backgroundColor: Theme.of(context).buttonColor,
-                          child: IconButton(
-                            icon: Icon(FontAwesomeIcons.minus,
-                                color: Theme.of(context).iconTheme.color),
-                            onPressed: () {
-                              setState(() {
-                                if (age > 1) {
-                                  age--;
-                                }
-                              });
-                            },
-                            color: Colors.deepPurple,
-                          ),
-                        ),
-                        onLongPressStart: (details) {
-                          buttonPressed = true;
-                          decreseAge();
-                        },
-                        onLongPressUp: () {
-                          buttonPressed = false;
-                        },
-                      ),
-                      GestureDetector(
-                        child: CircleAvatar(
-                          radius: 20.0,
-                          backgroundColor: Theme.of(context).buttonColor,
-                          child: IconButton(
-                            icon: Icon(FontAwesomeIcons.plus,
-                                color: Theme.of(context).iconTheme.color),
-                            onPressed: () {
-                              setState(() {
-                                age++;
-                              });
-                            },
-                            color: Colors.deepPurple,
-                          ),
-                        ),
-                        onLongPressStart: (details) {
-                          buttonPressed = true;
-                          increseAge();
-                        },
-                        onLongPressUp: () {
-                          buttonPressed = false;
-                        },
-                      )
-                    ])
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   mainAxisSize: MainAxisSize.max,
+                //   children: <Widget>[
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(FontAwesomeIcons.minus,
+                //               color: Theme.of(context).iconTheme.color),
+                //           onPressed: () {
+                //             setState(() {
+                //               if (age > 1) {
+                //                 age--;
+                //               }
+                //             });
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         decreseAge();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(FontAwesomeIcons.plus,
+                //               color: Theme.of(context).iconTheme.color),
+                //           onPressed: () {
+                //             setState(() {
+                //               age++;
+                //             });
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         increseAge();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
@@ -343,81 +349,85 @@ class _FemaleState extends State<Female> {
         elevation: 2.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: SizedBox.fromSize(
-            size: Size(160, 200),
-            child: Container(
-              padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Text(
-                    'Frecuencia cardíaca',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).accentColor),
-                  ),
-                  Text(
-                    weight.toString(),
-                    style: TextStyle(
-                        fontSize: 60.0,
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).accentColor),
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        GestureDetector(
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: Theme.of(context).buttonColor,
-                            child: IconButton(
-                              icon: Icon(FontAwesomeIcons.minus,
-                                  color: Theme.of(context).iconTheme.color),
-                              onPressed: () {
-                                setState(() {
-                                  if (weight > 5) {
-                                    weight--;
-                                  }
-                                });
-                              },
-                              color: Colors.deepPurple,
-                            ),
-                          ),
-                          onLongPressStart: (details) {
-                            buttonPressed = true;
-                            decreseWeight();
-                          },
-                          onLongPressUp: () {
-                            buttonPressed = false;
-                          },
-                        ),
-                        GestureDetector(
-                          child: CircleAvatar(
-                            radius: 20.0,
-                            backgroundColor: Theme.of(context).buttonColor,
-                            child: IconButton(
-                              icon: Icon(FontAwesomeIcons.plus,
-                                  color: Theme.of(context).iconTheme.color),
-                              onPressed: () {
-                                setState(() {
-                                  weight++;
-                                });
-                              },
-                              color: Colors.deepPurple,
-                            ),
-                          ),
-                          onLongPressStart: (details) {
-                            buttonPressed = true;
-                            increseWeight();
-                          },
-                          onLongPressUp: () {
-                            buttonPressed = false;
-                          },
-                        )
-                      ])
-                ],
-              ),
-            )),
+          size: Size(160, 200),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  'Frecuencia cardíaca',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Theme.of(context).accentColor),
+                ),
+                Text(
+                  weight.toString(),
+                  style: TextStyle(
+                      fontSize: 60.0,
+                      fontWeight: FontWeight.w900,
+                      color: Theme.of(context).accentColor),
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: <Widget>[
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(FontAwesomeIcons.minus,
+                //               color: Theme.of(context).iconTheme.color),
+                //           onPressed: () {
+                //             setState(() {
+                //               if (weight > 5) {
+                //                 weight--;
+                //               }
+                //             });
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         decreseWeight();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(FontAwesomeIcons.plus,
+                //               color: Theme.of(context).iconTheme.color),
+                //           onPressed: () {
+                //             setState(
+                //               () {
+                //                 weight++;
+                //               },
+                //             );
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         increseWeight();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //   ],
+                // ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -757,6 +767,144 @@ class _GenderState extends State<Gender> {
                     ),
                   ])
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TemperaturaCorporal extends StatefulWidget {
+  @override
+  _TemperaturaCorporalState createState() => _TemperaturaCorporalState();
+}
+
+class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
+  void decreseAge() async {
+    if (loopActive) return;
+
+    loopActive = true;
+
+    while (buttonPressed) {
+      setState(() {
+        if (age > 1) {
+          age--;
+        } else {}
+      });
+      await Future.delayed(
+        Duration(milliseconds: 100),
+      );
+      decreseAge();
+    }
+    loopActive = false;
+  }
+
+  void increseAge() async {
+    if (loopActive) return;
+
+    loopActive = true;
+
+    while (buttonPressed) {
+      setState(() {
+        age++;
+      });
+      await Future.delayed(
+        Duration(milliseconds: 100),
+      );
+      increseAge();
+    }
+    loopActive = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Card(
+        elevation: 2.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: SizedBox.fromSize(
+          size: Size(160, 200),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  'Temperatura corporal',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+                Text(
+                  age.toString(),
+                  style: TextStyle(
+                    fontSize: 60.0,
+                    fontWeight: FontWeight.w900,
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    GestureDetector(
+                      child: CircleAvatar(
+                        radius: 20.0,
+                        backgroundColor: Theme.of(context).buttonColor,
+                        child: IconButton(
+                          icon: Icon(
+                            FontAwesomeIcons.minus,
+                            color: Theme.of(context).iconTheme.color,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              if (age > 1) {
+                                age--;
+                              }
+                            });
+                          },
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      onLongPressStart: (details) {
+                        buttonPressed = true;
+                        decreseAge();
+                      },
+                      onLongPressUp: () {
+                        buttonPressed = false;
+                      },
+                    ),
+                    GestureDetector(
+                      child: CircleAvatar(
+                        radius: 20.0,
+                        backgroundColor: Theme.of(context).buttonColor,
+                        child: IconButton(
+                          icon: Icon(FontAwesomeIcons.plus,
+                              color: Theme.of(context).iconTheme.color),
+                          onPressed: () {
+                            setState(() {
+                              age++;
+                            });
+                          },
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      onLongPressStart: (details) {
+                        buttonPressed = true;
+                        increseAge();
+                      },
+                      onLongPressUp: () {
+                        buttonPressed = false;
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
