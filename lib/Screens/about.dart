@@ -26,21 +26,21 @@ class AboutUS extends StatelessWidget {
     ]);
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        centerTitle: false,
-        title: Text(
-          'About App',
-          textScaleFactor: 1.2,
-          textDirection: TextDirection.ltr,
-          textAlign: TextAlign.start,
-          style: TextStyle(
-              color: Theme.of(context).accentColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 20.0),
-        ),
-        backgroundColor: Theme.of(context).primaryColorDark,
-      ),
+      // appBar: AppBar(
+      //   elevation: 0.0,
+      //   centerTitle: false,
+      //   title: Text(
+      //     'About App',
+      //     textScaleFactor: 1.2,
+      //     textDirection: TextDirection.ltr,
+      //     textAlign: TextAlign.start,
+      //     style: TextStyle(
+      //         color: Theme.of(context).accentColor,
+      //         fontWeight: FontWeight.bold,
+      //         fontSize: 20.0),
+      //   ),
+      //   backgroundColor: Theme.of(context).primaryColorDark,
+      // ),
       body: Container(
         color: Theme.of(context).primaryColor,
         child: bannerImg(context),
@@ -71,19 +71,19 @@ class AboutUS extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Image(
-                      image: AssetImage("Assets/Images/ic_launcher.png"),
+                      image: AssetImage("Assets/Images/mp_launcher.png"),
                       height: 30.0,
                       width: 30.0,
                     ),
                     Text(
-                      " BMI.",
+                      " MedicPUCP.",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
                       ),
                     ),
                     Text(
-                      " Calculator".toUpperCase(),
+                      " KitApp".toUpperCase(),
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 16.0,
@@ -110,11 +110,11 @@ class AboutUS extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     color: Colors.deepPurple,
-                    child: Text("Read More..."),
+                    child: Text("Leer más..."),
                     textColor: Theme.of(context).primaryColor,
                     onPressed: () {
                       LaunchReview.launch(
-                          androidAppId: "com.nividata.bmi_calculator",
+                          androidAppId: "com.pablogod.medicpucp",
                           iOSAppId: "id1488893444");
                     },
                   ),
@@ -126,12 +126,12 @@ class AboutUS extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Send us your feedback on ",
+                        "Si tienes comentarios, sugerencias mandanos un mail a ",
                         style: TextStyle(
                             fontSize: 11.0, fontWeight: FontWeight.w500),
                       ),
                       SelectableText(
-                        "info@nividata.com",
+                        "pablo.dzv@gmail.com",
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 11.0,
@@ -148,7 +148,7 @@ class AboutUS extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "App is up to date",
+                  "Es la última versión de la aplicación",
                   style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 11.0,

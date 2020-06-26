@@ -82,6 +82,33 @@ class _BMIMainState extends State<BMIMain2> with SingleTickerProviderStateMixin 
               padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 74.0),
               child: Column(
                 children: <Widget>[
+                  Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),Text(
+                    "xD",
+                  ),
                   // Male/Female selection
                   // new Container(
                   //     child: new Row(
@@ -167,5 +194,6 @@ class _BMIMainState extends State<BMIMain2> with SingleTickerProviderStateMixin 
         statusBarColor: Colors.transparent,
       ),
     );
+  
   }
 }

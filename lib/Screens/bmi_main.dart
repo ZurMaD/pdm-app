@@ -847,62 +847,64 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                     color: Theme.of(context).accentColor,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    GestureDetector(
-                      child: CircleAvatar(
-                        radius: 20.0,
-                        backgroundColor: Theme.of(context).buttonColor,
-                        child: IconButton(
-                          icon: Icon(
-                            FontAwesomeIcons.minus,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              if (age > 1) {
-                                age--;
-                              }
-                            });
-                          },
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      onLongPressStart: (details) {
-                        buttonPressed = true;
-                        decreseAge();
-                      },
-                      onLongPressUp: () {
-                        buttonPressed = false;
-                      },
-                    ),
-                    GestureDetector(
-                      child: CircleAvatar(
-                        radius: 20.0,
-                        backgroundColor: Theme.of(context).buttonColor,
-                        child: IconButton(
-                          icon: Icon(FontAwesomeIcons.plus,
-                              color: Theme.of(context).iconTheme.color),
-                          onPressed: () {
-                            setState(() {
-                              age++;
-                            });
-                          },
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      onLongPressStart: (details) {
-                        buttonPressed = true;
-                        increseAge();
-                      },
-                      onLongPressUp: () {
-                        buttonPressed = false;
-                      },
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   mainAxisSize: MainAxisSize.max,
+                //   children: <Widget>[
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(
+                //             FontAwesomeIcons.minus,
+                //             color: Theme.of(context).iconTheme.color,
+                //           ),
+                //           onPressed: () {
+                //             setState(
+                //               () {
+                //                 if (age > 1) {
+                //                   age--;
+                //                 }
+                //               },
+                //             );
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         decreseAge();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //     GestureDetector(
+                //       child: CircleAvatar(
+                //         radius: 20.0,
+                //         backgroundColor: Theme.of(context).buttonColor,
+                //         child: IconButton(
+                //           icon: Icon(FontAwesomeIcons.plus,
+                //               color: Theme.of(context).iconTheme.color),
+                //           onPressed: () {
+                //             setState(() {
+                //               age++;
+                //             });
+                //           },
+                //           color: Colors.deepPurple,
+                //         ),
+                //       ),
+                //       onLongPressStart: (details) {
+                //         buttonPressed = true;
+                //         increseAge();
+                //       },
+                //       onLongPressUp: () {
+                //         buttonPressed = false;
+                //       },
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

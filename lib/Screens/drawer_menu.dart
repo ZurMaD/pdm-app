@@ -8,8 +8,7 @@ import 'package:bmi_calculator/Utilities/shared_preference_handler.dart';
 import 'package:bmi_calculator/Utilities/theme_handler.dart';
 import 'package:bmi_calculator/animations/size_transition.dart';
 import 'package:bmi_calculator/constants.dart';
-import 'package:drawerbehavior/drawer_scaffold.dart';
-import 'package:drawerbehavior/menu_screen.dart';
+import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:launch_review/launch_review.dart';
@@ -17,13 +16,18 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:bmi_calculator/Screens/alerts.dart';
 
-
 class DrawerMenu extends StatefulWidget {
   @override
   _DrawerMenuState createState() => _DrawerMenuState();
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
+  @override
+  void initState() {
+    selectedMenuItemId = menu.items[0].id;
+    super.initState();
+  }
+
   void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
     CustomTheme.instanceOf(buildContext).changeTheme(key);
   }
@@ -147,7 +151,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "  NiviData\n  Consultancy",
+                  "  N\n  C",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 16.0,
@@ -164,28 +168,20 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 
-  _launchURL() async {
-    const url = 'https://nividata.com';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    selectedMenuItemId = 'home';
-  }
+  // _launchURL() async {
+  //   const url = 'https://nividata.com';
+  //   if (await canLaunch(url)) {
+  //     await launch(url);
+  //   } else {
+  //     throw 'Could not launch $url';
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
-    selectedMenuItemId = 'home';
-    getTheme();
     return new DrawerScaffold(
-      percentage: .8,
-      cornerRadius: 20,
+      percentage: 1, // porcentaje de maximizar ventana
+      cornerRadius: 0, // 20 default
       showAppBar: true,
       appBar: AppBarProps(
         automaticallyImplyLeading: true,
@@ -211,31 +207,34 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       color: Colors.transparent,
                     ),
               onPressed: () {
-                setState(() {
-                  if (isDarkTheme) {
-                    isDarkTheme = false;
-                    themeLabel = "Light Mode";
-                    themeIcon =
-                        Icon(FontAwesomeIcons.solidMoon, color: Colors.black38);
-                    _changeTheme(context, MyThemeKeys.LIGHT);
-                    SharedPreference.setStringValue(
-                        SharedPreference.selectedTheme,
-                        MyThemeKeys.LIGHT.toString());
-                  } else {
-                    isDarkTheme = true;
-                    themeLabel = "Dark Mode";
-                    themeIcon = Icon(FontAwesomeIcons.solidSun);
-                    _changeTheme(context, MyThemeKeys.DARKER);
-                    SharedPreference.setStringValue(
-                        SharedPreference.selectedTheme,
-                        MyThemeKeys.DARKER.toString());
-                  }
-                },);
+                setState(
+                  () {
+                    if (isDarkTheme) {
+                      isDarkTheme = false;
+                      themeLabel = "Light Mode";
+                      themeIcon = Icon(FontAwesomeIcons.solidMoon,
+                          color: Colors.black38);
+                      _changeTheme(context, MyThemeKeys.LIGHT);
+                      SharedPreference.setStringValue(
+                          SharedPreference.selectedTheme,
+                          MyThemeKeys.LIGHT.toString());
+                    } else {
+                      isDarkTheme = true;
+                      themeLabel = "Dark Mode";
+                      themeIcon = Icon(FontAwesomeIcons.solidSun);
+                      _changeTheme(context, MyThemeKeys.DARKER);
+                      SharedPreference.setStringValue(
+                          SharedPreference.selectedTheme,
+                          MyThemeKeys.DARKER.toString());
+                    }
+                  },
+                );
               },
             ),
           ),
         ],
       ),
+
       menuView: new MenuView(
         menu: menu,
         headerView: headerView(context),
@@ -251,48 +250,36 @@ class _DrawerMenuState extends State<DrawerMenu> {
         textStyle: TextStyle(
             fontWeight: FontWeight.bold, fontSize: 17.0, color: Colors.white70),
         selectedItemId: selectedMenuItemId,
-        onMenuItemSelected: (String itemId) {
-          selectedMenuItemId = itemId;
-          switch (itemId) {
-            case 'home':
-              setState(() => _widget = Text("1"));
-              break;
-            case 'home2':
-              setState(() => _widget = Text("2"));
-              break;
-            case 'setting':
-              initMeasurementUnit();
-              Navigator.push(context, SizeRoute(page: Settings()));
-              setState(() => _widget = Text("default"));
-              break;
-            case 'aboutapp':
-              Navigator.push(context, SizeRoute(page: AboutUS()));
-              setState(() => _widget = Text("default"));
-              break;
-            case 'share':
-              AppUtil.onShareTap(context);
-              setState(() => _widget = Text("default"));
-              break;
-            case 'rateus':
-              LaunchReview.launch(
-                  androidAppId: "com.nividata.bmi_calculator",
-                  iOSAppId: "id1488893444");
-              setState(() => _widget = Text("default"));
-              break;
-            case 'feedback':
-              var emailUrl = mailTo;
-              var out = Uri.encodeFull(emailUrl);
-              launchURL(out);
-              setState(() => _widget = Text("default"));
-              break;
-            default:
-              setState(() => _widget = Text("default"));
-              break;
-          }
+        onMenuItemSelected: (itemId) {
+          setState(() {
+            selectedMenuItemId = itemId;
+          });
         },
       ),
-      contentView: Screen(
-        contentBuilder: (context) => Center(child: BMIMain()),
+
+      contentView: new Screen(
+        contentBuilder: (BuildContext context) {
+          var example;
+          switch (selectedMenuItemId) {
+            case "home":
+              example = new BMIMain();
+              break;
+            case "home2":
+              example = new BMIMain2();
+              break;
+            case "setting":
+              example = new Settings();
+              break;
+            case "aboutapp":
+              example = new AboutUS();
+              break;
+            default:
+              example = new Screen();
+              break;
+          }
+
+          return example;
+        },
         color: Colors.white,
       ),
     );
