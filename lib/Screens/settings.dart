@@ -221,7 +221,7 @@ class _PresionCardiacaTMState extends State<PresionCardiacaTM> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[                
+              children: <Widget>[
                 GestureDetector(
                   child: CircleAvatar(
                     radius: 20.0,
@@ -264,8 +264,10 @@ class _PresionCardiacaTMState extends State<PresionCardiacaTM> {
                     radius: 20.0,
                     backgroundColor: Theme.of(context).buttonColor,
                     child: IconButton(
-                      icon: Icon(FontAwesomeIcons.plus,
-                          color: Theme.of(context).iconTheme.color),
+                      icon: Icon(
+                        FontAwesomeIcons.plus,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                       onPressed: () {
                         setState(() {
                           age++;

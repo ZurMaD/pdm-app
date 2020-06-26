@@ -5,27 +5,27 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:bmi_calculator/Screens/login.dart';
+import 'package:bmi_calculator/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-
-import 'package:bmi_calculator/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  // https://medium.com/flutter-community/testing-flutter-ui-with-flutter-driver-c1583681e337
+  // #https://github.com/DK15/flutter-driver-demo/blob/master/test/widget_test.dart
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+   testWidgets('Ingresar usuario', (WidgetTester tester) async {
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    MyApp loginScreen = new MyApp();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // await tester.pumpWidget(loginScreen);
+
+    // Finder hintText = find.byKey(Key('emailField'));
+    // await tester.pump();
+
+    // await tester.tap(hintText);
+    // await tester.enterText(hintText, 'example');
+    // expect(hintText.toString().length>0,true);
+
   });
 }

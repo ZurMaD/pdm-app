@@ -9,6 +9,7 @@ import 'package:supercharged/supercharged.dart';
 import 'package:bmi_calculator/Screens/splash.dart';
 
 class FancyBackgroundApp extends StatelessWidget {
+
   Future navigateToSubPage(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
   }
@@ -18,6 +19,7 @@ class FancyBackgroundApp extends StatelessWidget {
     TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
     final emailField = TextField(
+      key: Key('emailField'),
       obscureText: true,
       style: style,
       decoration: InputDecoration(
@@ -32,6 +34,7 @@ class FancyBackgroundApp extends StatelessWidget {
     );
 
     final passwordField = TextField(
+      key: Key('passwordField'),
       obscureText: true,
       style: style,
       decoration: InputDecoration(
