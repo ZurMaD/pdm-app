@@ -99,70 +99,7 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
                   // new Gender(),
                 ],
               ),
-            ),
-            AnimatedLoader(
-              animation: _controller,
-              // alignment: FractionalOffset.center,
-              child: Container(
-                margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                alignment: Alignment.bottomCenter,
-                child: MaterialButton(
-                  child: Text(
-                    'Calculate'.toUpperCase(),
-                    style: TextStyle(
-                        color: Color(0xFF013487),
-                        fontSize: 16.0,
-                        letterSpacing: 1),
-                  ),
-                  color: Color.fromRGBO(179, 157, 219, 0.4),
-                  elevation: 0.0,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  minWidth: 215.0,
-                  height: 62.0,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(30.0)),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
-              padding: EdgeInsets.all(11.0),
-              child: MaterialButton(
-                child: Text(
-                  'Calculate'.toUpperCase(),
-                  style: TextStyle(
-                      color: Colors.white, fontSize: 16.0, letterSpacing: 1),
-                ),
-                color: Colors.deepPurple,
-                elevation: 2.0,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                minWidth: 200.0,
-                height: 50.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30.0)),
-                onPressed: () {
-                  CalculatorBrain calc;
-                  if (!isCentSelected)
-                    calc = CalculatorBrain(height: heightCal, weight: weight);
-                  else {
-                    calc = CalculatorBrain(
-                        height: AppUtil.feetInchToCM(feetValue, inchValue),
-                        weight: weight);
-                  }
-                  Navigator.push(
-                      context,
-                      SizeRoute(
-                          page: ResultPage(
-                        bmiResult: calc.calculateBMI(),
-                        resultText: calc.getResult(),
-                        resultTextStyle: calc.resultTextStyle(calc.getResult()),
-                        interpretation: calc.getInterpretation(),
-                      )));
-                },
-              ),
-            ),
+            ),            
           ],
         )),
       )),
@@ -229,7 +166,7 @@ class _MaleState extends State<Male> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  'Presión arterial',
+                  'Presión cardíaca',
                   style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),
@@ -357,7 +294,7 @@ class _FemaleState extends State<Female> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text(
-                  'Frecuencia cardíaca',
+                  'Frecuencia \nrespiratoria',
                   style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),

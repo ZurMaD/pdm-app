@@ -9,7 +9,6 @@ import 'package:supercharged/supercharged.dart';
 import 'package:bmi_calculator/Screens/splash.dart';
 
 class FancyBackgroundApp extends StatelessWidget {
-
   Future navigateToSubPage(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
   }
@@ -51,7 +50,7 @@ class FancyBackgroundApp extends StatelessWidget {
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color(0xff01A0C7),
+      color: Theme.of(context).iconTheme.color,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -61,8 +60,8 @@ class FancyBackgroundApp extends StatelessWidget {
         child: Text(
           "Iniciar Sesión",
           textAlign: TextAlign.center,
-          style:
-              style.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w800),
         ),
       ),
     );
@@ -72,29 +71,44 @@ class FancyBackgroundApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: <Widget>[
-            Positioned.fill(child: AnimatedBackground()),
-            onBottom(
-              AnimatedWave(
-                height: 180,
-                speed: 1.0,
+            // Positioned.fill(child: AnimatedBackground()),
+            // onBottom(
+            //   AnimatedWave(
+            //     height: 180,
+            //     speed: 1.0,
+            //   ),
+            // ),
+            // onBottom(
+            //   AnimatedWave(
+            //     height: 120,
+            //     speed: 0.9,
+            //     offset: pi,
+            //   ),
+            // ),
+            // onBottom(
+            //   AnimatedWave(
+            //     height: 220,
+            //     speed: 1.2,
+            //     offset: pi / 2,
+            //   ),
+            // ),
+            // Positioned.fill(
+            //   child: CenteredText(),
+            // ),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              // color: Colors.black87,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("Assets/Images/blood-pressure.jpg"),
+                  colorFilter: ColorFilter.mode(
+                    Colors.white70,
+                    BlendMode.dstOut,
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            onBottom(
-              AnimatedWave(
-                height: 120,
-                speed: 0.9,
-                offset: pi,
-              ),
-            ),
-            onBottom(
-              AnimatedWave(
-                height: 220,
-                speed: 1.2,
-                offset: pi / 2,
-              ),
-            ),
-            Positioned.fill(
-              child: CenteredText(),
             ),
             Container(
               // height: MediaQuery.of(context).size.height / 2,

@@ -1,11 +1,26 @@
 import 'package:bmi_calculator/GlobalVariables/globals.dart';
 import 'package:bmi_calculator/Utilities/my_theme_keys.dart';
-import 'package:bmi_calculator/Utilities/shared_preference_handler.dart';
+// import 'package:bmi_calculator/Utilities/shared_preference_handler.dart';
 import 'package:bmi_calculator/Utilities/theme_handler.dart';
-import 'package:bmi_calculator/components/single_choice_chips.dart';
+// import 'package:bmi_calculator/components/single_choice_chips.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'package:bmi_calculator/Screens/result_page.dart';
+import 'package:bmi_calculator/Utilities/app_util.dart';
+import 'package:bmi_calculator/animations/animate_button.dart';
+import 'package:bmi_calculator/animations/size_transition.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../calculator_brain.dart';
+import '../constants.dart';
+import 'package:bmi_calculator/GlobalVariables/globals.dart';
+
+import 'package:bmi_calculator/Screens/alerts.dart';
 
 class Settings extends StatefulWidget {
   @override
@@ -52,6 +67,8 @@ class _SettingsState extends State<Settings> {
         // ),
         body: settingUI());
   }
+
+  AnimationController _controller;
 
   Widget settingUI() {
     return Container(
@@ -139,15 +156,87 @@ class _SettingsState extends State<Settings> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      Text(
-                        "Presión cardíaca",
-                        style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w300),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Presión cardíaca            ",
+                            style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          // MultiSelectChip(reportList),
+                          new PresionCardiacaTM(),
+                        ],
                       ),
-                      // MultiSelectChip(reportList),
-                      PresionCardiacaTM(),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Frecuencia respiratoria",
+                            style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          // MultiSelectChip(reportList),
+                          new PresionCardiacaTM(),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            "Temperatura corporal  ",
+                            style: TextStyle(
+                                color: Theme.of(context).accentColor,
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.w300),
+                          ),
+                          // MultiSelectChip(reportList),
+                          new PresionCardiacaTM(),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      MaterialButton(
+                        child: Text(
+                          'Guardar',
+                          style: TextStyle(
+                              color: Color(0xFF013487),
+                              fontSize: 16.0,
+                              letterSpacing: 1),
+                        ),
+                        color: Color.fromRGBO(179, 157, 219, 0.4),
+                        elevation: 0.0,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        minWidth: 150.0,
+                        height: 45.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(30.0)),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 30,
+                      ),
                     ],
                   ),
                 ],
@@ -215,7 +304,7 @@ class _PresionCardiacaTMState extends State<PresionCardiacaTM> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: SizedBox.fromSize(
-          size: Size(200, 100),
+          size: Size(200, 75),
           child: Container(
             padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
             child: Row(

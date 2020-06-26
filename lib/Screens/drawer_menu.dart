@@ -33,30 +33,51 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   void getTheme() async {
-    var key =
-        await SharedPreference.getStringValue(SharedPreference.selectedTheme);
+    var key = await SharedPreference.getStringValue(
+      SharedPreference.selectedTheme,
+    );
     switch (key) {
       case "MyThemeKeys.LIGHT":
         isDarkTheme = false;
-        themeIcon = Icon(FontAwesomeIcons.solidMoon, color: Colors.black38);
+        themeIcon = Icon(
+          FontAwesomeIcons.solidMoon,
+          color: Colors.black38,
+        );
         break;
       case "MyThemeKeys.DARKER":
         isDarkTheme = true;
-        themeIcon = Icon(FontAwesomeIcons.solidSun);
+        themeIcon = Icon(
+          FontAwesomeIcons.solidSun,
+        );
         break;
       default:
         isDarkTheme = false;
-        themeIcon = Icon(FontAwesomeIcons.solidMoon, color: Colors.black38);
+        themeIcon = Icon(
+          FontAwesomeIcons.solidMoon,
+          color: Colors.black38,
+        );
         break;
     }
   }
 
   final menu = new Menu(
     items: [
-      new MenuItem(id: 'home', title: 'Inicio'),
-      new MenuItem(id: 'home2', title: 'Alertas'),
-      new MenuItem(id: 'setting', title: 'Configuraciones'),
-      new MenuItem(id: 'aboutapp', title: 'Soporte Técnico'),
+      new MenuItem(
+        id: 'home',
+        title: 'Inicio',
+      ),
+      new MenuItem(
+        id: 'home2',
+        title: 'Alertas',
+      ),
+      new MenuItem(
+        id: 'setting',
+        title: 'Configuraciones',
+      ),
+      new MenuItem(
+        id: 'aboutapp',
+        title: 'Soporte Técnico',
+      ),
       // new MenuItem(id: 'share', title: 'Share App'),
       // new MenuItem(id: 'rateus', title: 'Rate App'),
       // new MenuItem(id: 'feedback', title: 'Send Feedback')
@@ -74,23 +95,26 @@ class _DrawerMenuState extends State<DrawerMenu> {
         children: <Widget>[
           SizedBox(height: 20),
           Image(
-              image: AssetImage("Assets/Images/mp_launcher.png"),
-              filterQuality: FilterQuality.high,
-              width: 100.0,
-              height: 100.0),
+            image: AssetImage("Assets/Images/mp_launcher.png"),
+            filterQuality: FilterQuality.high,
+            width: 100.0,
+            height: 100.0,
+          ),
           Text(
             "MedicPUCP",
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 34.0,
-                fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 34.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             " Aplicativo que brinda reporte del kit asociado al dispositivo.",
             style: TextStyle(
-                color: Colors.white,
-                fontSize: 10.0,
-                fontWeight: FontWeight.bold),
+              color: Colors.white,
+              fontSize: 10.0,
+              fontWeight: FontWeight.bold,
+            ),
           )
         ],
       ),
@@ -110,9 +134,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
               Text(
                 "Desarrolado con ",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w600),
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               Icon(
                 FontAwesomeIcons.solidHeart,
@@ -122,9 +147,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
               Text(
                 "  por",
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w600),
+                  color: Colors.white,
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w600,
+                ),
               )
             ],
           ),
@@ -139,23 +165,26 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 Text(
                   "  PDM\n  Grupo3",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   "  &",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   "  N\n  C",
                   style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold),
+                    color: Colors.white,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -180,7 +209,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   @override
   Widget build(BuildContext context) {
     return new DrawerScaffold(
-      percentage: 1, // porcentaje de maximizar ventana
+      percentage: 0, // porcentaje de maximizar ventana
       cornerRadius: 0, // 20 default
       showAppBar: true,
       appBar: AppBarProps(
@@ -189,12 +218,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
         backgroundColor: Theme.of(context).primaryColorDark,
         elevation: 1.0,
         centerTitle: true,
-        title: Text('MedicPUCP SensorKiT',
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-                color: Theme.of(context).accentColor,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w900)),
+        title: Text(
+          'MedicPUCP',
+          textDirection: TextDirection.ltr,
+          style: TextStyle(
+            color: Theme.of(context).accentColor,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
         actions: <Widget>[
           Container(
             padding: EdgeInsets.fromLTRB(0.0, 0.0, 15.0, 0.0),
@@ -216,16 +248,18 @@ class _DrawerMenuState extends State<DrawerMenu> {
                           color: Colors.black38);
                       _changeTheme(context, MyThemeKeys.LIGHT);
                       SharedPreference.setStringValue(
-                          SharedPreference.selectedTheme,
-                          MyThemeKeys.LIGHT.toString());
+                        SharedPreference.selectedTheme,
+                        MyThemeKeys.LIGHT.toString(),
+                      );
                     } else {
                       isDarkTheme = true;
                       themeLabel = "Dark Mode";
                       themeIcon = Icon(FontAwesomeIcons.solidSun);
                       _changeTheme(context, MyThemeKeys.DARKER);
                       SharedPreference.setStringValue(
-                          SharedPreference.selectedTheme,
-                          MyThemeKeys.DARKER.toString());
+                        SharedPreference.selectedTheme,
+                        MyThemeKeys.DARKER.toString(),
+                      );
                     }
                   },
                 );
@@ -243,17 +277,26 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.fromLTRB(40.0, 16.0, 0.0, 10.0),
         color: Colors.black87,
         background: DecorationImage(
-            image: AssetImage("Assets/Images/blood-pressure.jpg"),
-            colorFilter: ColorFilter.mode(Colors.white54, BlendMode.dstOut),
-            fit: BoxFit.cover),
+          image: AssetImage("Assets/Images/blood-pressure.jpg"),
+          colorFilter: ColorFilter.mode(
+            Colors.white54,
+            BlendMode.dstOut,
+          ),
+          fit: BoxFit.cover,
+        ),
         selectorColor: Color.fromRGBO(67, 193, 152, 1),
         textStyle: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 17.0, color: Colors.white70),
+          fontWeight: FontWeight.bold,
+          fontSize: 17.0,
+          color: Colors.white70,
+        ),
         selectedItemId: selectedMenuItemId,
         onMenuItemSelected: (itemId) {
-          setState(() {
-            selectedMenuItemId = itemId;
-          });
+          setState(
+            () {
+              selectedMenuItemId = itemId;
+            },
+          );
         },
       ),
 
@@ -288,7 +331,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
   void initMeasurementUnit() {
     // selectedChoice = SharedPreference.getStringValue(SharedPreference.selectedMUnit)??"";
     print(
-        "chip ${SharedPreference.getStringValue(SharedPreference.selectedMUnit)}");
+      "chip ${SharedPreference.getStringValue(SharedPreference.selectedMUnit)}",
+    );
   }
 
   launchURL(String url) async {

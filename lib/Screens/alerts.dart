@@ -11,7 +11,6 @@ import 'package:flutter/services.dart';
 // import '../constants.dart';
 import 'package:bmi_calculator/GlobalVariables/globals.dart';
 
-
 enum GenderEnum {
   Male,
   Female,
@@ -22,7 +21,8 @@ class BMIMain2 extends StatefulWidget {
   _BMIMainState createState() => _BMIMainState();
 }
 
-class _BMIMainState extends State<BMIMain2> with SingleTickerProviderStateMixin {
+class _BMIMainState extends State<BMIMain2>
+    with SingleTickerProviderStateMixin {
   var btnVisibility = 1.0;
   GenderEnum selectedGender;
 
@@ -73,116 +73,47 @@ class _BMIMainState extends State<BMIMain2> with SingleTickerProviderStateMixin 
 
     return AnnotatedRegion(
       child: Scaffold(
-          // drawer: Drawer(),
           body: SafeArea(
         child: Container(
             child: Stack(
           children: <Widget>[
             SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 74.0),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
-                  ),Text(
-                    "xD",
+              padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 74.0),
+              child: Card(
+                elevation: 6.0,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                child: SizedBox.fromSize(
+                  size: Size(MediaQuery.of(context).size.width, 150),
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+                    child: Column(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          'Notificación # 4 - Presión arterial alta',
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w900,
+                            // color: Theme.of(context).accentColor,
+                            color:Colors.red,
+                          ),
+                        ),
+                        Text(
+                          // age.toString(),                          
+                          "Fecha y hora: 2020-06-22 00:00:00\n Usuario: Pablo Díaz \n Reportado a Central: Sí ",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w900,
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  // Male/Female selection
-                  // new Container(
-                  //     child: new Row(
-                  //   crossAxisAlignment: CrossAxisAlignment.center,
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: <Widget>[new Male(), new Female()],
-                  // )),
-                  // new Height(),
-                  // new Gender(),
-                ],
+                ),
               ),
-            ),
-            AnimatedLoader(
-              animation: _controller,
-              // alignment: FractionalOffset.center,
-              child: Container(
-                // margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
-                // alignment: Alignment.bottomCenter,
-                // child: MaterialButton(
-                //   child: Text(
-                //     'Calculate'.toUpperCase(),
-                //     style: TextStyle(
-                //         color: Color(0xFF013487),
-                //         fontSize: 16.0,
-                //         letterSpacing: 1),
-                //   ),
-                //   color: Color.fromRGBO(179, 157, 219, 0.4),
-                //   elevation: 0.0,
-                //   clipBehavior: Clip.antiAliasWithSaveLayer,
-                //   minWidth: 215.0,
-                //   height: 62.0,
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: new BorderRadius.circular(30.0)),
-                //   onPressed: () {},
-                // ),
-              ),
-            ),
-            Container(
-              // alignment: Alignment.bottomCenter,
-              // margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
-              // padding: EdgeInsets.all(11.0),
-              // child: MaterialButton(
-              //   child: Text(
-              //     'Calculate'.toUpperCase(),
-              //     style: TextStyle(
-              //         color: Colors.white, fontSize: 16.0, letterSpacing: 1),
-              //   ),
-              //   color: Colors.deepPurple,
-              //   elevation: 2.0,
-              //   clipBehavior: Clip.antiAliasWithSaveLayer,
-              //   minWidth: 200.0,
-              //   height: 50.0,
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: new BorderRadius.circular(30.0)),
-              //   onPressed: () {
-              //     CalculatorBrain calc;
-              //     if (!isCentSelected)
-              //       calc = CalculatorBrain(height: heightCal, weight: weight);
-              //     else {
-              //       calc = CalculatorBrain(
-              //           height: AppUtil.feetInchToCM(feetValue, inchValue),
-              //           weight: weight);
-              //     }
-              //     Navigator.push(
-              //         context,
-              //         SizeRoute(
-              //             page: ResultPage(
-              //           bmiResult: calc.calculateBMI(),
-              //           resultText: calc.getResult(),
-              //           resultTextStyle: calc.resultTextStyle(calc.getResult()),
-              //           interpretation: calc.getInterpretation(),
-              //         )));
-              //   },
-              // ),
             ),
           ],
         )),
@@ -194,6 +125,5 @@ class _BMIMainState extends State<BMIMain2> with SingleTickerProviderStateMixin 
         statusBarColor: Colors.transparent,
       ),
     );
-  
   }
 }
