@@ -13,6 +13,11 @@ import 'package:bmi_calculator/GlobalVariables/globals.dart';
 
 import 'package:bmi_calculator/Screens/alerts.dart';
 
+// HTTP JSON GET
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 enum GenderEnum {
   Male,
   Female,
@@ -24,6 +29,7 @@ class BMIMain extends StatefulWidget {
 }
 
 class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
+  //
   var btnVisibility = 1.0;
   GenderEnum selectedGender;
 
@@ -99,7 +105,7 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
                   // new Gender(),
                 ],
               ),
-            ),            
+            ),
           ],
         )),
       )),
@@ -119,37 +125,37 @@ class Male extends StatefulWidget {
 }
 
 class _MaleState extends State<Male> {
-  void decreseAge() async {
-    if (loopActive) return;
+  // void decreseAge() async {
+  //   if (loopActive) return;
 
-    loopActive = true;
+  //   loopActive = true;
 
-    while (buttonPressed) {
-      setState(() {
-        if (age > 1) {
-          age--;
-        } else {}
-      });
-      await Future.delayed(Duration(milliseconds: 100));
-      decreseAge();
-    }
-    loopActive = false;
-  }
+  //   while (buttonPressed) {
+  //     setState(() {
+  //       if (age > 1) {
+  //         age--;
+  //       } else {}
+  //     });
+  //     await Future.delayed(Duration(milliseconds: 100));
+  //     decreseAge();
+  //   }
+  //   loopActive = false;
+  // }
 
-  void increseAge() async {
-    if (loopActive) return;
+  // void increseAge() async {
+  //   if (loopActive) return;
 
-    loopActive = true;
+  //   loopActive = true;
 
-    while (buttonPressed) {
-      setState(() {
-        age++;
-      });
-      await Future.delayed(Duration(milliseconds: 100));
-      increseAge();
-    }
-    loopActive = false;
-  }
+  //   while (buttonPressed) {
+  //     setState(() {
+  //       age++;
+  //     });
+  //     await Future.delayed(Duration(milliseconds: 100));
+  //     increseAge();
+  //   }
+  //   loopActive = false;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -717,40 +723,50 @@ class TemperaturaCorporal extends StatefulWidget {
 }
 
 class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
-  void decreseAge() async {
-    if (loopActive) return;
+  // void decreseAge() async {
+  //   if (loopActive) return;
 
-    loopActive = true;
+  //   loopActive = true;
 
-    while (buttonPressed) {
-      setState(() {
-        if (age > 1) {
-          age--;
-        } else {}
-      });
-      await Future.delayed(
-        Duration(milliseconds: 100),
-      );
-      decreseAge();
-    }
-    loopActive = false;
-  }
+  //   while (buttonPressed) {
+  //     setState(() {
+  //       if (age > 1) {
+  //         age--;
+  //       } else {}
+  //     });
+  //     await Future.delayed(
+  //       Duration(milliseconds: 100),
+  //     );
+  //     decreseAge();
+  //   }
+  //   loopActive = false;
+  // }
 
-  void increseAge() async {
-    if (loopActive) return;
+  // void increseAge() async {
+  //   if (loopActive) return;
 
-    loopActive = true;
+  //   loopActive = true;
 
-    while (buttonPressed) {
-      setState(() {
-        age++;
-      });
-      await Future.delayed(
-        Duration(milliseconds: 100),
-      );
-      increseAge();
-    }
-    loopActive = false;
+  //   while (buttonPressed) {
+  //     setState(() {
+  //       age++;
+  //     });
+  //     await Future.delayed(
+  //       Duration(milliseconds: 100),
+  //     );
+  //     increseAge();
+  //   }
+  //   loopActive = false;
+  // }
+  // JSON API
+  Future<DataJson> futuredata;
+
+  var tempcorp;
+
+  @override
+  initState() {
+    super.initState();
+    futuredata = getData();
   }
 
   @override
@@ -776,14 +792,35 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                     color: Theme.of(context).accentColor,
                   ),
                 ),
-                Text(
-                  age.toString(),
-                  style: TextStyle(
-                    fontSize: 60.0,
-                    fontWeight: FontWeight.w900,
-                    color: Theme.of(context).accentColor,
-                  ),
+                FutureBuilder<DataJson>(
+                  future: futuredata,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.tempCorp.toString(),
+                        style: TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
                 ),
+                // Text(
+                //   "",
+                //   // age.toString(),
+                //   style: TextStyle(
+                //     fontSize: 60.0,
+                //     fontWeight: FontWeight.w900,
+                //     color: Theme.of(context).accentColor,
+                //   ),
+                // ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //   mainAxisSize: MainAxisSize.max,
@@ -848,5 +885,58 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
         ),
       ),
     );
+  }
+}
+
+//  API JSON
+class DataJson {
+  String time;
+  String kitId;
+  double presCard;
+  double frecResp;
+  double tempCorp;
+  double caidas;
+
+  DataJson(
+      {this.time,
+      this.kitId,
+      this.presCard,
+      this.frecResp,
+      this.tempCorp,
+      this.caidas});
+
+  DataJson.fromJson(Map<String, dynamic> json) {
+    time = json['time'];
+    kitId = json['kit_id'];
+    presCard = json['pres_card'];
+    frecResp = json['frec_resp'];
+    tempCorp = json['temp_corp'];
+    caidas = json['caidas'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['time'] = this.time;
+    data['kit_id'] = this.kitId;
+    data['pres_card'] = this.presCard;
+    data['frec_resp'] = this.frecResp;
+    data['temp_corp'] = this.tempCorp;
+    data['caidas'] = this.caidas;
+    return data;
+  }
+}
+
+Future<DataJson> getData() async {
+  final response = await http.get(
+      'https://pdm3.herokuapp.com/api/medic_hypertable/2020-04-16T01:15:00-05:00/?format=json');
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return DataJson.fromJson(json.decode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load DataJson');
   }
 }

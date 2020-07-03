@@ -23,6 +23,7 @@ dependencies:
   get_version: ^0.1.0
   cupertino_icons: ^0.1.2
   simple_animations: ^2.2.1
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
