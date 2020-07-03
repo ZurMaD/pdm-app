@@ -67,30 +67,30 @@ class _SplashState extends State<Splash> {
                   ),
                   TyperAnimatedTextKit(
                     duration: Duration(
-                      seconds: 2,
+                      milliseconds: 1500,
                     ),
                     textAlign: TextAlign.start,
                     alignment: AlignmentDirectional.bottomCenter,
                     isRepeatingAnimation: false,
                     textStyle: TextStyle(
-                        color: Colors.lightBlueAccent.shade400,
+                        color: Colors.deepPurpleAccent.shade400,
                         fontSize: 100.0,
                         fontWeight: FontWeight.w900),
-                    text: <String>["Medic"],
+                    text: <String>["Medic \nPUCP"],
                   ),
-                  TyperAnimatedTextKit(
-                    duration: Duration(
-                      seconds: 2,
-                    ),
-                    textAlign: TextAlign.start,
-                    alignment: AlignmentDirectional.bottomCenter,
-                    isRepeatingAnimation: false,
-                    textStyle: TextStyle(
-                        color: Colors.lightBlueAccent.shade400,
-                        fontSize: 100.0,
-                        fontWeight: FontWeight.w900),
-                    text: <String>["PUCP"],
-                  )
+                  // TyperAnimatedTextKit(
+                  //   duration: Duration(
+                  //     seconds: 2,
+                  //   ),
+                  //   textAlign: TextAlign.start,
+                  //   alignment: AlignmentDirectional.bottomCenter,
+                  //   isRepeatingAnimation: false,
+                  //   textStyle: TextStyle(
+                  //       color: Colors.deepPurpleAccent.shade400,
+                  //       fontSize: 100.0,
+                  //       fontWeight: FontWeight.w900),
+                  //   text: <String>["PUCP"],
+                  // )
                 ],
               ),
             ),

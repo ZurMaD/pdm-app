@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bmi_calculator/Screens/result_page.dart';
 import 'package:bmi_calculator/Utilities/app_util.dart';
 import 'package:bmi_calculator/animations/animate_button.dart';
@@ -90,17 +92,23 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
               child: Column(
                 children: <Widget>[
                   // Male/Female selection
+
                   new Container(
                     child: new Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new Male(),
-                        new Female(),
-                      ],
+                      children: <Widget>[],
                     ),
                   ),
-                  new TemperaturaCorporal(),
+                  new Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new Male(),
+                      new Female(),
+                      new TemperaturaCorporal(),
+                    ],
+                  ),
                   // new Height(),
                   // new Gender(),
                 ],
@@ -125,37 +133,15 @@ class Male extends StatefulWidget {
 }
 
 class _MaleState extends State<Male> {
-  // void decreseAge() async {
-  //   if (loopActive) return;
+  Future<DataJson> futuredata;
 
-  //   loopActive = true;
+  var tempcorp;
 
-  //   while (buttonPressed) {
-  //     setState(() {
-  //       if (age > 1) {
-  //         age--;
-  //       } else {}
-  //     });
-  //     await Future.delayed(Duration(milliseconds: 100));
-  //     decreseAge();
-  //   }
-  //   loopActive = false;
-  // }
-
-  // void increseAge() async {
-  //   if (loopActive) return;
-
-  //   loopActive = true;
-
-  //   while (buttonPressed) {
-  //     setState(() {
-  //       age++;
-  //     });
-  //     await Future.delayed(Duration(milliseconds: 100));
-  //     increseAge();
-  //   }
-  //   loopActive = false;
-  // }
+  @override
+  initState() {
+    super.initState();
+    futuredata = getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +150,23 @@ class _MaleState extends State<Male> {
         elevation: 2.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: SizedBox.fromSize(
-          size: Size(160, 200),
+          size: Size(MediaQuery.of(context).size.width / 1.2, 200),
           child: Container(
             padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new ExactAssetImage('Assets/Images/heart.jpg'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10),
+              // boxShadow: [
+              //   BoxShadow(
+              //     blurRadius: 10,
+              //     color: Colors.black,
+              //     offset: Offset(1, 3),
+              //   ),
+              // ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -174,70 +174,30 @@ class _MaleState extends State<Male> {
                 Text(
                   'Presión cardíaca',
                   style: TextStyle(
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),
                 ),
-                Text(
-                  age.toString(),
-                  style: TextStyle(
-                      fontSize: 60.0,
-                      fontWeight: FontWeight.w900,
-                      color: Theme.of(context).accentColor),
+                FutureBuilder<DataJson>(
+                  future: futuredata,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.presCard.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   mainAxisSize: MainAxisSize.max,
-                //   children: <Widget>[
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(FontAwesomeIcons.minus,
-                //               color: Theme.of(context).iconTheme.color),
-                //           onPressed: () {
-                //             setState(() {
-                //               if (age > 1) {
-                //                 age--;
-                //               }
-                //             });
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         decreseAge();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(FontAwesomeIcons.plus,
-                //               color: Theme.of(context).iconTheme.color),
-                //           onPressed: () {
-                //             setState(() {
-                //               age++;
-                //             });
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         increseAge();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -253,36 +213,14 @@ class Female extends StatefulWidget {
 }
 
 class _FemaleState extends State<Female> {
-  void decreseWeight() async {
-    if (loopActive) return;
+  Future<DataJson> futuredata;
 
-    loopActive = true;
+  var tempcorp;
 
-    while (buttonPressed) {
-      setState(() {
-        if (weight > 5) {
-          weight--;
-        }
-      });
-      await Future.delayed(Duration(milliseconds: 100));
-      decreseWeight();
-    }
-    loopActive = false;
-  }
-
-  void increseWeight() async {
-    if (loopActive) return;
-
-    loopActive = true;
-
-    while (buttonPressed) {
-      setState(() {
-        weight++;
-      });
-      await Future.delayed(Duration(milliseconds: 100));
-      increseWeight();
-    }
-    loopActive = false;
+  @override
+  initState() {
+    super.initState();
+    futuredata = getData();
   }
 
   @override
@@ -292,81 +230,60 @@ class _FemaleState extends State<Female> {
         elevation: 2.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: SizedBox.fromSize(
-          size: Size(160, 200),
+          size: Size(MediaQuery.of(context).size.width / 1.2, 200),
+          // size: Size(160, 200),
           child: Container(
             padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new ExactAssetImage('Assets/Images/frec.jpg'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
+                // ClipRect(child:BackdropFilter(
+                //   filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                //   child: Container(
+                //     alignment: Alignment.center,
+                //     color: Colors.grey.withOpacity(0.1),
+                //     child: Text(
+                //       '',
+                //       style:
+                //           TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                //     ),
+                //   ),
+                // ),),
                 Text(
-                  'Frecuencia \nrespiratoria',
+                  'Frecuencia respiratoria',
                   style: TextStyle(
+                      fontSize: 20.0,
                       fontWeight: FontWeight.w900,
                       color: Theme.of(context).accentColor),
                 ),
-                Text(
-                  weight.toString(),
-                  style: TextStyle(
-                      fontSize: 60.0,
-                      fontWeight: FontWeight.w900,
-                      color: Theme.of(context).accentColor),
+                FutureBuilder<DataJson>(
+                  future: futuredata,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.frecResp.toInt().toString(),
+                        style: TextStyle(
+                          fontSize: 60.0,
+                          fontWeight: FontWeight.w900,
+                          color: Theme.of(context).accentColor,
+                        ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+
+                    // By default, show a loading spinner.
+                    return CircularProgressIndicator();
+                  },
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: <Widget>[
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(FontAwesomeIcons.minus,
-                //               color: Theme.of(context).iconTheme.color),
-                //           onPressed: () {
-                //             setState(() {
-                //               if (weight > 5) {
-                //                 weight--;
-                //               }
-                //             });
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         decreseWeight();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(FontAwesomeIcons.plus,
-                //               color: Theme.of(context).iconTheme.color),
-                //           onPressed: () {
-                //             setState(
-                //               () {
-                //                 weight++;
-                //               },
-                //             );
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         increseWeight();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -723,41 +640,6 @@ class TemperaturaCorporal extends StatefulWidget {
 }
 
 class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
-  // void decreseAge() async {
-  //   if (loopActive) return;
-
-  //   loopActive = true;
-
-  //   while (buttonPressed) {
-  //     setState(() {
-  //       if (age > 1) {
-  //         age--;
-  //       } else {}
-  //     });
-  //     await Future.delayed(
-  //       Duration(milliseconds: 100),
-  //     );
-  //     decreseAge();
-  //   }
-  //   loopActive = false;
-  // }
-
-  // void increseAge() async {
-  //   if (loopActive) return;
-
-  //   loopActive = true;
-
-  //   while (buttonPressed) {
-  //     setState(() {
-  //       age++;
-  //     });
-  //     await Future.delayed(
-  //       Duration(milliseconds: 100),
-  //     );
-  //     increseAge();
-  //   }
-  //   loopActive = false;
-  // }
   // JSON API
   Future<DataJson> futuredata;
 
@@ -778,9 +660,17 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
           borderRadius: BorderRadius.circular(10),
         ),
         child: SizedBox.fromSize(
-          size: Size(160, 200),
+          size: Size(MediaQuery.of(context).size.width / 1.2, 200),
+          // size: Size(160, 200),
           child: Container(
             padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+            decoration: new BoxDecoration(
+              image: new DecorationImage(
+                image: new ExactAssetImage('Assets/Images/term.jpg'),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -788,6 +678,7 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                 Text(
                   'Temperatura corporal',
                   style: TextStyle(
+                    fontSize: 20.0,
                     fontWeight: FontWeight.w900,
                     color: Theme.of(context).accentColor,
                   ),
@@ -797,7 +688,7 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Text(
-                        snapshot.data.tempCorp.toString(),
+                        (snapshot.data.tempCorp.toInt()).toString(),
                         style: TextStyle(
                           fontSize: 60.0,
                           fontWeight: FontWeight.w900,
@@ -812,73 +703,6 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                     return CircularProgressIndicator();
                   },
                 ),
-                // Text(
-                //   "",
-                //   // age.toString(),
-                //   style: TextStyle(
-                //     fontSize: 60.0,
-                //     fontWeight: FontWeight.w900,
-                //     color: Theme.of(context).accentColor,
-                //   ),
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   mainAxisSize: MainAxisSize.max,
-                //   children: <Widget>[
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(
-                //             FontAwesomeIcons.minus,
-                //             color: Theme.of(context).iconTheme.color,
-                //           ),
-                //           onPressed: () {
-                //             setState(
-                //               () {
-                //                 if (age > 1) {
-                //                   age--;
-                //                 }
-                //               },
-                //             );
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         decreseAge();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //     GestureDetector(
-                //       child: CircleAvatar(
-                //         radius: 20.0,
-                //         backgroundColor: Theme.of(context).buttonColor,
-                //         child: IconButton(
-                //           icon: Icon(FontAwesomeIcons.plus,
-                //               color: Theme.of(context).iconTheme.color),
-                //           onPressed: () {
-                //             setState(() {
-                //               age++;
-                //             });
-                //           },
-                //           color: Colors.deepPurple,
-                //         ),
-                //       ),
-                //       onLongPressStart: (details) {
-                //         buttonPressed = true;
-                //         increseAge();
-                //       },
-                //       onLongPressUp: () {
-                //         buttonPressed = false;
-                //       },
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
@@ -927,13 +751,13 @@ class DataJson {
 }
 
 Future<DataJson> getData() async {
-  final response = await http.get(
-      'https://pdm3.herokuapp.com/api/medic_hypertable/2020-04-16T01:15:00-05:00/?format=json');
+  final response = await http
+      .get('https://pdm3.herokuapp.com/api/last_medic_hypertable/?format=json');
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    return DataJson.fromJson(json.decode(response.body));
+    return DataJson.fromJson(json.decode(response.body)[0]);
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
