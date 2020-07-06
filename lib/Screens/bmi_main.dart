@@ -1,24 +1,25 @@
-import 'dart:ui';
+// import 'dart:ffi';
 
-import 'package:bmi_calculator/Screens/result_page.dart';
-import 'package:bmi_calculator/Utilities/app_util.dart';
-import 'package:bmi_calculator/animations/animate_button.dart';
-import 'package:bmi_calculator/animations/size_transition.dart';
+// import 'package:bmi_calculator/Screens/result_page.dart';
+// import 'package:bmi_calculator/Utilities/app_util.dart';
+// import 'package:bmi_calculator/animations/animate_button.dart';
+// import 'package:bmi_calculator/animations/size_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../calculator_brain.dart';
+// import '../calculator_brain.dart';
 import '../constants.dart';
 import 'package:bmi_calculator/GlobalVariables/globals.dart';
 
-import 'package:bmi_calculator/Screens/alerts.dart';
+// import 'package:bmi_calculator/Screens/alerts.dart';
 
 // HTTP JSON GET
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'dart:ui';
 
 enum GenderEnum {
   Male,
@@ -43,6 +44,7 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
   initState() {
     super.initState();
     // isDarkTheme = false;
+    // _refresh();
 
     _controller = new AnimationController(
       duration: const Duration(milliseconds: 1000),
@@ -54,6 +56,15 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  Future<http.Response> _response;
+
+  void _refresh() {
+    setState(() {
+      _response =
+          http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
+    });
   }
 
   @override
@@ -75,48 +86,52 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
 
     return AnnotatedRegion(
       child: Scaffold(
-          // drawer: Drawer(),
-          body: SafeArea(
-        child: Container(
-            child: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 74.0),
-              child: Column(
-                children: <Widget>[
-                  // Male/Female selection
-
-                  new Container(
-                    child: new Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[],
-                    ),
-                  ),
-                  new Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // drawer: Drawer(),
+        body: new SafeArea(
+          child: new Container(
+            child: new Stack(
+              children: <Widget>[
+                new SingleChildScrollView(
+                  padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 74.0),
+                  child: new Column(
                     children: <Widget>[
-                      new Male(),
-                      new Female(),
-                      new TemperaturaCorporal(),
+                      // Male/Female selection
+                      new Container(
+                        child: new Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[],
+                        ),
+                      ),
+                      new Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          // new MyHomePage(),
+                          new Male(),
+                          new Female(),
+                          new TemperaturaCorporal(),
+                        ],
+                      ),
+                      // new Height(),
+                      // new Gender(),
                     ],
                   ),
-                  // new Height(),
-                  // new Gender(),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        )),
-      )),
+          ),
+        ),
+      ),
       value: SystemUiOverlayStyle(
         systemNavigationBarColor: Colors.transparent,
         systemNavigationBarDividerColor: Colors.black,
@@ -174,9 +189,10 @@ class _MaleState extends State<Male> {
                 Text(
                   'Presión cardíaca',
                   style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w900,
-                      color: Theme.of(context).accentColor),
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w900,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
                 FutureBuilder<DataJson>(
                   future: futuredata,
@@ -197,6 +213,14 @@ class _MaleState extends State<Male> {
                     // By default, show a loading spinner.
                     return CircularProgressIndicator();
                   },
+                ),
+                Text(
+                  'mmHg',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w900,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
               ],
             ),
@@ -279,10 +303,16 @@ class _FemaleState extends State<Female> {
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-
                     // By default, show a loading spinner.
                     return CircularProgressIndicator();
                   },
+                ),
+                Text(
+                  'respiraciones por minuto',
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w900,
+                      color: Theme.of(context).accentColor),
                 ),
               ],
             ),
@@ -542,15 +572,17 @@ class _HeightState extends State<Height> {
                       '10"',
                       '11"',
                       '12"'
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(fontSize: 40.0),
-                        ),
-                      );
-                    }).toList(),
+                    ].map<DropdownMenuItem<String>>(
+                      (String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(fontSize: 40.0),
+                          ),
+                        );
+                      },
+                    ).toList(),
                   ),
                 ),
               ],
@@ -559,7 +591,9 @@ class _HeightState extends State<Height> {
         ),
       ),
       curve: Curves.easeOutQuart,
-      duration: Duration(milliseconds: 4000),
+      duration: Duration(
+        milliseconds: 4000,
+      ),
     );
   }
 }
@@ -642,14 +676,57 @@ class TemperaturaCorporal extends StatefulWidget {
 class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
   // JSON API
   Future<DataJson> futuredata;
+  // Future<List<DataJson>> futuredata2;
 
   var tempcorp;
+  // List<DataJson> _listDataJson = new List<DataJson>();
+
+  // Duration interval = Duration(seconds: 1);
+  // Stream<Double> stream = Stream<Double>.periodic(interval,transform);
+  // // Added this statement
+  // stream = stream.take(5);
+
+  // Stream<int> myStream;
+
+  // Stream<int> timedCounter(Duration interval, [int maxCount]) async* {
+  //   int i = 0;
+  //   while (true) {
+  //     await Future.delayed(interval);
+  //     yield i++;
+  //     if (i == maxCount) break;
+  //   }
+  // }
 
   @override
   initState() {
     super.initState();
     futuredata = getData();
+    // getData2();
   }
+
+  // Future<List<DataJson>> getData2() async {
+  //   final response =
+  //       await http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
+
+  //   if (response.statusCode == 200) {
+  //     // If the call to the server was successful, parse the JSON
+  //     List<dynamic> values = new List<dynamic>();
+  //     values = json.decode(response.body);
+  //     if (values.length > 0) {
+  //       for (int i = 0; i < values.length; i++) {
+  //         if (values[i] != null) {
+  //           Map<String, dynamic> map = values[i];
+  //           _listDataJson.add(DataJson.fromJson(map));
+  //           debugPrint('${map['time']}');
+  //         }
+  //       }
+  //     }
+  //     return _listDataJson;
+  //   } else {
+  //     // If that call was not successful, throw an error.
+  //     throw Exception('Failed to load post');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -683,6 +760,7 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                     color: Theme.of(context).accentColor,
                   ),
                 ),
+
                 FutureBuilder<DataJson>(
                   future: futuredata,
                   builder: (context, snapshot) {
@@ -698,11 +776,45 @@ class _TemperaturaCorporalState extends State<TemperaturaCorporal> {
                     } else if (snapshot.hasError) {
                       return Text("${snapshot.error}");
                     }
-
                     // By default, show a loading spinner.
                     return CircularProgressIndicator();
                   },
                 ),
+
+                Text(
+                  '°C',
+                  style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w900,
+                      color: Theme.of(context).accentColor),
+                ),
+
+                // Center(
+                //   child: StreamBuilder<int>(
+                //     stream: myStream,
+                //     builder: (context, snapshot) {
+                //       if (!snapshot.hasData) {
+                //         return Text("Loading");
+                //       }
+                //       return Text("${snapshot.data.toString()}",
+                //           style: TextStyle(fontSize: 20));
+                //     },
+                //   ),
+                // ),
+                // SizedBox(height: 20.0),
+                // RaisedButton(
+                //   child: Text("REFRESH"),
+                //   color: Colors.red,
+                //   onPressed: () {
+                //     setState(
+                //       () {
+                //         // myStream = timedCounter(
+                //         //     Duration(seconds: 1), 10); //refresh the stream here
+                //         futuredata = getData();
+                //       },
+                //     );
+                //   },
+                // ),
               ],
             ),
           ),
@@ -751,8 +863,8 @@ class DataJson {
 }
 
 Future<DataJson> getData() async {
-  final response = await http
-      .get('https://pdm3.herokuapp.com/api/last_medic_hypertable/?format=json');
+  final response =
+      await http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -761,6 +873,6 @@ Future<DataJson> getData() async {
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
-    throw Exception('Failed to load DataJson');
+    throw Exception('No se pudo obtener datos');
   }
 }

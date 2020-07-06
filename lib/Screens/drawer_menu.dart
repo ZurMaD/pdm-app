@@ -15,6 +15,7 @@ import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:bmi_calculator/Screens/alerts.dart';
+import 'package:bmi_calculator/Screens/SubScreens/1.dart';
 
 class DrawerMenu extends StatefulWidget {
   @override
@@ -305,7 +306,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
           var example;
           switch (selectedMenuItemId) {
             case "home":
-              example = new BMIMain();
+              // example = new BMIMain();
+              example = new FirstPage();
               break;
             case "home2":
               example = new BMIMain2();
