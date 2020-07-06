@@ -1,21 +1,21 @@
-import 'package:bmi_calculator/GlobalVariables/globals.dart';
-import 'package:bmi_calculator/Screens/about.dart';
-import 'package:bmi_calculator/Screens/bmi_main.dart';
-import 'package:bmi_calculator/Screens/settings.dart';
-import 'package:bmi_calculator/Utilities/app_util.dart';
-import 'package:bmi_calculator/Utilities/my_theme_keys.dart';
-import 'package:bmi_calculator/Utilities/shared_preference_handler.dart';
-import 'package:bmi_calculator/Utilities/theme_handler.dart';
-import 'package:bmi_calculator/animations/size_transition.dart';
-import 'package:bmi_calculator/constants.dart';
+import 'package:medicpucp/GlobalVariables/globals.dart';
+import 'package:medicpucp/Screens/about.dart';
+// import 'package:medicpucp/Screens/bmi_main.dart';
+import 'package:medicpucp/Screens/settings.dart';
+// import 'package:medicpucp/Utilities/app_util.dart';
+import 'package:medicpucp/Utilities/my_theme_keys.dart';
+import 'package:medicpucp/Utilities/shared_preference_handler.dart';
+import 'package:medicpucp/Utilities/theme_handler.dart';
+// import 'package:medicpucp/animations/size_transition.dart';
+import 'package:medicpucp/constants.dart';
 import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:launch_review/launch_review.dart';
+// import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:bmi_calculator/Screens/alerts.dart';
-import 'package:bmi_calculator/Screens/SubScreens/1.dart';
+import 'package:medicpucp/Screens/alerts.dart';
+import 'package:medicpucp/Screens/SubScreens/1.dart';
 
 class DrawerMenu extends StatefulWidget {
   @override
@@ -86,7 +86,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   );
 
   var selectedMenuItemId = 'home';
-  var _widget = Text("1");
+  // var _widget = Text("1");
 
   Widget headerView(BuildContext context) {
     return Container(

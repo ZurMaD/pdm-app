@@ -120,19 +120,23 @@ class FirstPageState extends State<FirstPage> {
                         builder: (BuildContext context,
                             AsyncSnapshot<http.Response> response) {
                           debugPrint(response.data.body);
-                          if (!response.hasData)
-                            return new Text('Cargando...');
+                          if (!response.hasData) {
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          }
+                          // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
                             return new Text(
                                 'No pudimos conectarnos al servidor');
                           } else {
                             Map<String, dynamic> json1 =
                                 json.decode(response.data.body)[0];
-                            if (json1['time'] != '')
+                            if (json1['time'] != '') {
                               return new PresCard(json1);
-                            else
+                            } else {
                               return new Text(
                                   'Error getting column, JSON is  $json1.');
+                            }
                           }
                         },
                       ),
@@ -175,19 +179,23 @@ class FirstPageState extends State<FirstPage> {
                         builder: (BuildContext context,
                             AsyncSnapshot<http.Response> response) {
                           debugPrint(response.data.body);
-                          if (!response.hasData)
-                            return new Text('Cargando...');
+                          if (!response.hasData) {
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          }
+                          // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
                             return new Text(
                                 'No pudimos conectarnos al servidor');
                           } else {
                             Map<String, dynamic> json2 =
                                 json.decode(response.data.body)[0];
-                            if (json2['time'] != '')
+                            if (json2['time'] != '') {
                               return new FrecResp(json2);
-                            else
+                            } else {
                               return new Text(
                                   'Error getting column, JSON is  $json2.');
+                            }
                           }
                         },
                       ),
@@ -230,19 +238,23 @@ class FirstPageState extends State<FirstPage> {
                         builder: (BuildContext context,
                             AsyncSnapshot<http.Response> response) {
                           debugPrint(response.data.body);
-                          if (!response.hasData)
-                            return new Text('Cargando...');
+                          if (!response.hasData) {
+                            // By default, show a loading spinner.
+                            return CircularProgressIndicator();
+                          }
+                          // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
                             return new Text(
                                 'No pudimos conectarnos al servidor');
                           } else {
                             Map<String, dynamic> json3 =
                                 json.decode(response.data.body)[0];
-                            if (json3['time'] != '')
+                            if (json3['time'] != '') {
                               return new TempCorp(json3);
-                            else
+                            } else {
                               return new Text(
                                   'Error getting column, JSON is  $json3.');
+                            }
                           }
                         },
                       ),

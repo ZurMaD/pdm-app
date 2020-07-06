@@ -1,4 +1,4 @@
-import 'package:bmi_calculator/GlobalVariables/globals.dart';
+import 'package:medicpucp/GlobalVariables/globals.dart';
 import 'package:flutter/material.dart';
 
 class MultiSelectChip extends StatefulWidget {

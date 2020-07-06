@@ -1,9 +1,9 @@
 // import 'dart:ffi';
 
-// import 'package:bmi_calculator/Screens/result_page.dart';
-// import 'package:bmi_calculator/Utilities/app_util.dart';
-// import 'package:bmi_calculator/animations/animate_button.dart';
-// import 'package:bmi_calculator/animations/size_transition.dart';
+// import 'package:medicpucp/Screens/result_page.dart';
+// import 'package:medicpucp/Utilities/app_util.dart';
+// import 'package:medicpucp/animations/animate_button.dart';
+// import 'package:medicpucp/animations/size_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
@@ -11,9 +11,9 @@ import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
 
 // import '../calculator_brain.dart';
 import '../constants.dart';
-import 'package:bmi_calculator/GlobalVariables/globals.dart';
+import 'package:medicpucp/GlobalVariables/globals.dart';
 
-// import 'package:bmi_calculator/Screens/alerts.dart';
+// import 'package:medicpucp/Screens/alerts.dart';
 
 // HTTP JSON GET
 
@@ -58,14 +58,14 @@ class _BMIMainState extends State<BMIMain> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<http.Response> _response;
+  // Future<http.Response> _response;
 
-  void _refresh() {
-    setState(() {
-      _response =
-          http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
-    });
-  }
+  // void _refresh() {
+  //   setState(() {
+  //     _response =
+  //         http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bmi_calculator/animations/size_transition.dart';
+import 'package:medicpucp/animations/size_transition.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';

@@ -1,6 +1,6 @@
 library bmi.globals;
 
-import 'dart:ffi';
+// import 'dart:ffi';
 
 enum Gender {
   Male,

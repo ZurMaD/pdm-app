@@ -1,7 +1,7 @@
-// import 'package:bmi_calculator/Global%20Variables/globals.dart';
-import 'package:bmi_calculator/GlobalVariables/globals.dart';
-import 'package:bmi_calculator/Screens/splash.dart';
-import 'package:bmi_calculator/Screens/login.dart';
+// import 'package:medicpucp/Global%20Variables/globals.dart';
+import 'package:medicpucp/GlobalVariables/globals.dart';
+// import 'package:medicpucp/Screens/splash.dart';
+import 'package:medicpucp/Screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
