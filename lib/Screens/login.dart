@@ -1,5 +1,8 @@
 // import 'dart:js';
+// import 'dart:io';
 import 'dart:math';
+import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,19 +10,59 @@ import 'package:simple_animations/simple_animations.dart';
 import 'package:medicpucp/Utilities/example_page.dart';
 import 'package:supercharged/supercharged.dart';
 import 'package:medicpucp/Screens/splash.dart';
+import 'package:http/http.dart' as http;
+// import 'dart:io';
+// import 'package:oauth2/oauth2.dart' as oauth2;
+
+// class TokenAPI extends StatelessWidget {
+//   final Map<String, dynamic> data;
+//   TokenAPI(this.data);
+//   Widget build(BuildContext context) {
+//     double tokenAPI = data['token'];
+//     return new Text(
+//       '${tokenAPI.toString()} mmHg',
+//       style: TextStyle(
+//         fontSize: 10.0,
+//         fontWeight: FontWeight.w900,
+//         color: Theme.of(context).accentColor,
+//       ),
+//     );
+//   }
+// }
+
+Future<http.Response> apiRequest(String url, Map jsonMap) async {
+  var body = json.encode(jsonMap);
+
+  var response = await http.post(url,
+      headers: {"Content-Type": "application/json"}, body: body);
+
+  print("${response.body}");
+  return response;
+}
 
 class FancyBackgroundApp extends StatelessWidget {
+  final myControllerUser = TextEditingController();
+  final myControllerPassword = TextEditingController();
+  // Future<http.Response> _response;
+
+  // final authorizationEndpoint = Uri.parse("https://pdm3.herokuapp.com/auth/login/");
+
   Future navigateToSubPage(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
+  }
+
+  void redireccionar(context, http.Response response) async {
+    navigateToSubPage(context);
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
-    final emailField = TextField(
-      key: Key('emailField'),
-      obscureText: true,
+    final userlField = TextField(
+      key: Key('userlField'),
+      controller: myControllerUser,
+      obscureText: false,
       style: style,
       decoration: InputDecoration(
         filled: true,
@@ -34,6 +77,7 @@ class FancyBackgroundApp extends StatelessWidget {
 
     final passwordField = TextField(
       key: Key('passwordField'),
+      controller: myControllerPassword,
       obscureText: true,
       style: style,
       decoration: InputDecoration(
@@ -54,14 +98,136 @@ class FancyBackgroundApp extends StatelessWidget {
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {
-          navigateToSubPage(context);
+        onPressed: () async {
+          if (myControllerUser.text.length.toInt() > 4 &&
+              myControllerPassword.text.length.toInt() > 4) {
+            // EN CASO PASA EL PRIMER FILTRO
+            String str;
+            String str2;
+            str = myControllerUser.text.length.toString();
+            str2 = myControllerPassword.text.length.toString();
+
+            debugPrint(myControllerUser.text);
+            debugPrint(str);
+            debugPrint(myControllerPassword.text);
+            debugPrint(str2);
+
+            final usernameText = myControllerUser.text;
+            final passwordText = myControllerPassword.text;
+
+            // var client = await oauth2.resourceOwnerPasswordGrant(
+            //   authorizationEndpoint, username, password,
+            //   identifier: identifier, secret: secret);
+            String url = 'https://pdm3.herokuapp.com/auth/login/';
+            Map map = {
+              "username": "$usernameText",
+              "password": "$passwordText"
+            };
+            debugPrint(map.toString());
+            var response = await apiRequest(url, map);
+            if (response.body.toString().contains("token")) {
+              redireccionar(context, response);
+            } else if (response.body.toString().contains("error")) {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Retrieve the text the user has entered by using the
+                    // TextEditingController.
+                    content: Text(
+                      "Usuario o contraseña incorrectos.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.purpleAccent.shade700,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // Retrieve the text the user has entered by using the
+                    // TextEditingController.
+                    content: Text(
+                      "Algo ha fallado en el servidor o la aplicación de manera interna. Contactar a soporte",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.purpleAccent.shade700,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+
+            // _response = (await http.post(
+            //     'https://pdm3.herokuapp.com/auth/login/?username=' +
+            //         myControllerUser.text +
+            //         '&password=' +
+            //         myControllerPassword.text)) as Future<http.Response>;
+
+            // new FutureBuilder(
+            //   future: _response,
+            //   builder: (BuildContext context,
+            //       AsyncSnapshot<http.Response> response) {
+            // debugPrint(_response.data.body);
+            // if (!_response.hasData) {
+            //   // By default, show a loading spinner.
+            //   CircularProgressIndicator();
+            // }
+            // // return new Text('Cargando...');
+            // else if (_response.data.statusCode != 200) {
+            //   new Text('No pudimos conectarnos al servidor');
+            // } else {
+            //   Map<String, dynamic> jsontoken = json.decode(_response.data.body);
+            //   debugPrint(jsontoken.toString());
+            //   if (jsontoken['token'] != '') {
+            //     // return new TokenAPI(jsontoken);
+            //     // var token= TokenAPI(jsontoken);
+            //     // debugPrint(token.toString());
+            //     navigateToSubPage(context);
+            //   } else {
+            //     Text('Error getting column, JSON is  $jsontoken.');
+            //   }
+            // }
+            //   },
+            // );
+          } else {
+            return showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  // Retrieve the text the user has entered by using the
+                  // TextEditingController.
+                  content: Text(
+                    "Usuario o contraseña incorrectos.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.purpleAccent.shade700,
+                      fontSize: 30.0,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                );
+              },
+            );
+          }
         },
         child: Text(
           "Iniciar Sesión",
           textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w800),
+            color: Colors.white,
+            fontSize: 16.0,
+            fontWeight: FontWeight.w800,
+          ),
         ),
       ),
     );
@@ -129,7 +295,7 @@ class FancyBackgroundApp extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 45.0),
-                      emailField,
+                      userlField,
                       SizedBox(height: 25.0),
                       passwordField,
                       SizedBox(
