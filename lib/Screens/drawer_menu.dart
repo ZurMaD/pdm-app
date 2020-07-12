@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:ffi';
+
+import 'package:localstorage/localstorage.dart';
 import 'package:medicpucp/GlobalVariables/globals.dart';
 import 'package:medicpucp/Screens/about.dart';
 // import 'package:medicpucp/Screens/bmi_main.dart';
@@ -16,17 +20,91 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:medicpucp/Screens/alerts.dart';
 import 'package:medicpucp/Screens/SubScreens/1.dart';
+import 'package:http/http.dart' as http;
 
 class DrawerMenu extends StatefulWidget {
   @override
   _DrawerMenuState createState() => _DrawerMenuState();
 }
 
+class UserDataFromJSON extends StatelessWidget {
+  // {
+  //   "id": 2,
+  //   "first_name": "Pablo",
+  //   "last_name": "Dz V",
+  //   "email": "pablo.dzv@gmail.com"
+  // }
+  final Map<String, dynamic> data;
+  UserDataFromJSON(this.data);
+  Widget build(BuildContext context) {
+    int id = data['id'];
+    String first_name = data['first_name'];
+    String last_name = data['last_name'];
+    String email = data['email'];
+    String name = utf8.decode(first_name.runes.toList()) +
+        ' ' +
+        utf8.decode(last_name.runes.toList());
+
+    return new Text(
+      ' Usuario: ${name.toString()}',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
+class UserKitDataFromJSON extends StatelessWidget {
+  // {
+  //     "kit_id": "AA0001",
+  //     "user_id": 2,
+  //     "estado_comunicacion": {
+  //         "estado": "conectado y enviando data"
+  //     },
+  //     "estado_baterias": {
+  //         "medikit": "80%",
+  //         "mediband": "40%"
+  //     },
+  //     "tiempo_muestreo": {
+  //         "t_pres_card": 150,
+  //         "t_frec_resp": 20,
+  //         "t_temp_corp": 1
+  //     }
+  // }
+  final Map<String, dynamic> data;
+  UserKitDataFromJSON(this.data);
+  Widget build(BuildContext context) {
+    String kit_id = data['kit_id'];
+    int user_id = data['user_id'];
+
+    String estado_comunicacion_estado = data['estado_comunicacion']['estado'];
+
+    double estado_bateria_medikit = data['estado_baterias']['medikit'];
+    double estado_bateria_mediband = data['estado_baterias']['mediband'];
+
+    double tiempo_muestreo_t_pres_card = data['tiempo_muestreo']['t_pres_card'];
+    double tiempo_muestreo_t_frec_resp = data['tiempo_muestreo']['t_frec_resp'];
+    double tiempo_muestreo_t_temp_corp = data['tiempo_muestreo']['t_temp_corp'];
+
+    String kitId = kit_id;
+    return new Text(
+      ' Código Kit: ${kitId.toString()}',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16.0,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
 class _DrawerMenuState extends State<DrawerMenu> {
   @override
   void initState() {
-    selectedMenuItemId = menu.items[0].id;
     super.initState();
+    selectedMenuItemId = menu.items[0].id;
   }
 
   void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
@@ -88,13 +166,41 @@ class _DrawerMenuState extends State<DrawerMenu> {
   var selectedMenuItemId = 'home';
   // var _widget = Text("1");
 
+  final storage = LocalStorage('myStorageKey');
+
+  Future<http.Response> apiGetUserData() async {
+    String url = 'https://pdm3.herokuapp.com/auth/logged/get_data_user/';
+    var tokenJson = storage.getItem('token');
+    debugPrint(tokenJson);
+    var body = tokenJson;
+
+    var response = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: body);
+    // print("${response.body}");
+    return response;
+  }
+
+  Future<http.Response> apiGetKitData() async {
+    String url = 'https://pdm3.herokuapp.com/auth/logged/get_user_kit_data/';
+    var tokenJson = storage.getItem('token');
+    debugPrint(tokenJson);
+    var body = tokenJson;
+
+    var response = await http.post(url,
+        headers: {"Content-Type": "application/json"}, body: body);
+    // print("${response.body}");
+    return response;
+  }
+
   Widget headerView(BuildContext context) {
     return Container(
       margin: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(height: 20),
+          SizedBox(
+            height: 20,
+          ),
           Image(
             image: AssetImage("Assets/Images/mp_launcher.png"),
             filterQuality: FilterQuality.high,
@@ -110,13 +216,57 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ),
           ),
           Text(
-            " Aplicativo que brinda reporte del kit asociado al dispositivo.",
+            " Aplicativo que brinda reporte del \n kit asociado al dispositivo.",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 10.0,
+              fontSize: 12.0,
               fontWeight: FontWeight.bold,
             ),
-          )
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          new FutureBuilder(
+            future: apiGetUserData(),
+            builder:
+                (BuildContext context, AsyncSnapshot<http.Response> response) {
+              debugPrint(response.data.body);
+              if (!response.hasData) {
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              } else if (response.data.statusCode != 200) {
+                return new Text('No pudimos conectarnos al servidor');
+              } else {
+                Map<String, dynamic> json1 = json.decode(response.data.body);
+                if (json1['id'] != 0) {
+                  return new UserDataFromJSON(json1);
+                } else {
+                  return new Text('Error getting column, JSON is  $json1.');
+                }
+              }
+            },
+          ),
+          new FutureBuilder(
+            future: apiGetKitData(),
+            builder:
+                (BuildContext context, AsyncSnapshot<http.Response> response) {
+              debugPrint(response.data.body);
+              if (!response.hasData) {
+                // By default, show a loading spinner.
+                return CircularProgressIndicator();
+              } else if (response.data.statusCode != 200) {
+                return new Text('No pudimos conectarnos al servidor');
+              } else {
+                Map<String, dynamic> json4 = json.decode(response.data.body);
+                if (json4['kit_id'] != '') {
+                  storage.setItem('kit_id', json4['kit_id']);
+                  return new UserKitDataFromJSON(json4);
+                } else {
+                  return new Text('Error getting column, JSON is  $json4.');
+                }
+              }
+            },
+          ),
         ],
       ),
     );
@@ -330,12 +480,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
     );
   }
 
-  void initMeasurementUnit() {
-    // selectedChoice = SharedPreference.getStringValue(SharedPreference.selectedMUnit)??"";
-    print(
-      "chip ${SharedPreference.getStringValue(SharedPreference.selectedMUnit)}",
-    );
-  }
+  // void initMeasurementUnit() {
+  // //   selectedChoice = SharedPreference.getStringValue(SharedPreference.selectedMUnit)??"";
+  //   print(
+  //     "chip ${SharedPreference.getStringValue(SharedPreference.selectedMUnit)}",
+  //   );
+  // }
 
   launchURL(String url) async {
     if (await canLaunch(url)) {

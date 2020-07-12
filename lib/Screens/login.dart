@@ -1,66 +1,39 @@
-// import 'dart:js';
-// import 'dart:io';
-import 'dart:math';
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:localstorage/localstorage.dart';
+
+import 'package:medicpucp/Screens/loader_drawer_menu.dart';
 import 'package:medicpucp/Utilities/example_page.dart';
-import 'package:supercharged/supercharged.dart';
-import 'package:medicpucp/Screens/splash.dart';
+
 import 'package:http/http.dart' as http;
-// import 'dart:io';
-// import 'package:oauth2/oauth2.dart' as oauth2;
-
-// class TokenAPI extends StatelessWidget {
-//   final Map<String, dynamic> data;
-//   TokenAPI(this.data);
-//   Widget build(BuildContext context) {
-//     double tokenAPI = data['token'];
-//     return new Text(
-//       '${tokenAPI.toString()} mmHg',
-//       style: TextStyle(
-//         fontSize: 10.0,
-//         fontWeight: FontWeight.w900,
-//         color: Theme.of(context).accentColor,
-//       ),
-//     );
-//   }
-// }
-
-Future<http.Response> apiRequest(String url, Map jsonMap) async {
-  var body = json.encode(jsonMap);
-
-  var response = await http.post(url,
-      headers: {"Content-Type": "application/json"}, body: body);
-
-  print("${response.body}");
-  return response;
-}
 
 class FancyBackgroundApp extends StatelessWidget {
+
   final myControllerUser = TextEditingController();
   final myControllerPassword = TextEditingController();
-  // Future<http.Response> _response;
 
-  // final authorizationEndpoint = Uri.parse("https://pdm3.herokuapp.com/auth/login/");
-
-  Future navigateToSubPage(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Splash()));
-  }
+  final LocalStorage storage = new LocalStorage('myStorageKey');
+  
 
   void redireccionar(context, http.Response response) async {
-    navigateToSubPage(context);
+
+    String token = response.body;
+
+    storage.setItem('token', token);
+
+
+    Navigator.push(context, MaterialPageRoute(builder: (context) => LoaderDrawerMenu()));
   }
 
   @override
   Widget build(BuildContext context) {
     TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
-    final userlField = TextField(
-      key: Key('userlField'),
+    final userField = TextField(
+      key: Key('userField'),
       controller: myControllerUser,
       obscureText: false,
       style: style,
@@ -166,39 +139,6 @@ class FancyBackgroundApp extends StatelessWidget {
                 },
               );
             }
-
-            // _response = (await http.post(
-            //     'https://pdm3.herokuapp.com/auth/login/?username=' +
-            //         myControllerUser.text +
-            //         '&password=' +
-            //         myControllerPassword.text)) as Future<http.Response>;
-
-            // new FutureBuilder(
-            //   future: _response,
-            //   builder: (BuildContext context,
-            //       AsyncSnapshot<http.Response> response) {
-            // debugPrint(_response.data.body);
-            // if (!_response.hasData) {
-            //   // By default, show a loading spinner.
-            //   CircularProgressIndicator();
-            // }
-            // // return new Text('Cargando...');
-            // else if (_response.data.statusCode != 200) {
-            //   new Text('No pudimos conectarnos al servidor');
-            // } else {
-            //   Map<String, dynamic> jsontoken = json.decode(_response.data.body);
-            //   debugPrint(jsontoken.toString());
-            //   if (jsontoken['token'] != '') {
-            //     // return new TokenAPI(jsontoken);
-            //     // var token= TokenAPI(jsontoken);
-            //     // debugPrint(token.toString());
-            //     navigateToSubPage(context);
-            //   } else {
-            //     Text('Error getting column, JSON is  $jsontoken.');
-            //   }
-            // }
-            //   },
-            // );
           } else {
             return showDialog(
               context: context,
@@ -237,30 +177,6 @@ class FancyBackgroundApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: <Widget>[
-            // Positioned.fill(child: AnimatedBackground()),
-            // onBottom(
-            //   AnimatedWave(
-            //     height: 180,
-            //     speed: 1.0,
-            //   ),
-            // ),
-            // onBottom(
-            //   AnimatedWave(
-            //     height: 120,
-            //     speed: 0.9,
-            //     offset: pi,
-            //   ),
-            // ),
-            // onBottom(
-            //   AnimatedWave(
-            //     height: 220,
-            //     speed: 1.2,
-            //     offset: pi / 2,
-            //   ),
-            // ),
-            // Positioned.fill(
-            //   child: CenteredText(),
-            // ),
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -295,7 +211,7 @@ class FancyBackgroundApp extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 45.0),
-                      userlField,
+                      userField,
                       SizedBox(height: 25.0),
                       passwordField,
                       SizedBox(
@@ -324,107 +240,6 @@ class FancyBackgroundApp extends StatelessWidget {
       );
 }
 
-class AnimatedWave extends StatelessWidget {
-  final double height;
-  final double speed;
-  final double offset;
-
-  AnimatedWave({this.height, this.speed, this.offset = 0.0});
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        height: height,
-        width: constraints.biggest.width,
-        child: LoopAnimation<double>(
-            duration: (5000 / speed).round().milliseconds,
-            tween: 0.0.tweenTo(2 * pi),
-            builder: (context, child, value) {
-              return CustomPaint(
-                foregroundPainter: CurvePainter(value + offset),
-              );
-            }),
-      );
-    });
-  }
-}
-
-class CurvePainter extends CustomPainter {
-  final double value;
-
-  CurvePainter(this.value);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final white = Paint()..color = Colors.white.withAlpha(60);
-    final path = Path();
-
-    final y1 = sin(value);
-    final y2 = sin(value + pi / 2);
-    final y3 = sin(value + pi);
-
-    final startPointY = size.height * (0.5 + 0.4 * y1);
-    final controlPointY = size.height * (0.5 + 0.4 * y2);
-    final endPointY = size.height * (0.5 + 0.4 * y3);
-
-    path.moveTo(size.width * 0, startPointY);
-    path.quadraticBezierTo(
-        size.width * 0.5, controlPointY, size.width, endPointY);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-    path.close();
-    canvas.drawPath(path, white);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
-enum _BgProps { color1, color2 }
-
-class AnimatedBackground extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final tween = MultiTween<_BgProps>()
-      ..add(
-          _BgProps.color1, Color(0xffD38312).tweenTo(Colors.lightBlue.shade900))
-      ..add(_BgProps.color2, Color(0xffA83279).tweenTo(Colors.blue.shade600));
-
-    return MirrorAnimation<MultiTweenValues<_BgProps>>(
-      tween: tween,
-      duration: 3.seconds,
-      builder: (context, child, value) {
-        return Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                value.get(_BgProps.color1),
-                value.get(_BgProps.color2)
-              ])),
-        );
-      },
-    );
-  }
-}
-
-class CenteredText extends StatelessWidget {
-  const CenteredText({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(),
-    );
-  }
-}
-
 class FancyBackgroundDemo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -435,4 +250,14 @@ class FancyBackgroundDemo extends StatelessWidget {
       builder: (context) => (FancyBackgroundApp()),
     );
   }
+}
+
+Future<http.Response> apiRequest(String url, Map jsonMap) async {
+  var body = json.encode(jsonMap);
+
+  var response = await http.post(url,
+      headers: {"Content-Type": "application/json"}, body: body);
+
+  print("${response.body}");
+  return response;
 }

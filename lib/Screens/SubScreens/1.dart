@@ -86,15 +86,15 @@ class FirstPageState extends State<FirstPage> {
       body: new Center(
         child: new Column(
           children: <Widget>[
-            Card(
+            new Card(
               elevation: 2.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SizedBox.fromSize(
+              child: new SizedBox.fromSize(
                 size: Size(MediaQuery.of(context).size.width / 1.2, 200),
                 // size: Size(160, 200),
-                child: Container(
+                child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
@@ -103,7 +103,7 @@ class FirstPageState extends State<FirstPage> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Column(
+                  child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -117,25 +117,20 @@ class FirstPageState extends State<FirstPage> {
                       ),
                       new FutureBuilder(
                         future: _response,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<http.Response> response) {
+                        builder:  (BuildContext context, AsyncSnapshot<http.Response> response) {
                           debugPrint(response.data.body);
                           if (!response.hasData) {
-                            // By default, show a loading spinner.
+                            // By default, show a loading spinner. 
                             return CircularProgressIndicator();
                           }
-                          // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
-                            return new Text(
-                                'No pudimos conectarnos al servidor');
+                            return new Text( 'No pudimos conectarnos al servidor');
                           } else {
-                            Map<String, dynamic> json1 =
-                                json.decode(response.data.body)[0];
+                            Map<String, dynamic> json1 = json.decode(response.data.body)[0];
                             if (json1['time'] != '') {
                               return new PresCard(json1);
                             } else {
-                              return new Text(
-                                  'Error getting column, JSON is  $json1.');
+                              return new Text('Error getting column, JSON is  $json1.');
                             }
                           }
                         },
@@ -145,15 +140,15 @@ class FirstPageState extends State<FirstPage> {
                 ),
               ),
             ),
-            Card(
+            new Card(
               elevation: 2.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SizedBox.fromSize(
+              child: new SizedBox.fromSize(
                 size: Size(MediaQuery.of(context).size.width / 1.2, 200),
                 // size: Size(160, 200),
-                child: Container(
+                child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
@@ -162,7 +157,7 @@ class FirstPageState extends State<FirstPage> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Column(
+                  child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -181,7 +176,7 @@ class FirstPageState extends State<FirstPage> {
                           debugPrint(response.data.body);
                           if (!response.hasData) {
                             // By default, show a loading spinner.
-                            return CircularProgressIndicator();
+                            return new CircularProgressIndicator();
                           }
                           // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
@@ -204,15 +199,15 @@ class FirstPageState extends State<FirstPage> {
                 ),
               ),
             ),
-            Card(
+            new Card(
               elevation: 2.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SizedBox.fromSize(
+              child: new SizedBox.fromSize(
                 size: Size(MediaQuery.of(context).size.width / 1.2, 200),
                 // size: Size(160, 200),
-                child: Container(
+                child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
@@ -221,7 +216,7 @@ class FirstPageState extends State<FirstPage> {
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Column(
+                  child:new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
@@ -240,7 +235,7 @@ class FirstPageState extends State<FirstPage> {
                           debugPrint(response.data.body);
                           if (!response.hasData) {
                             // By default, show a loading spinner.
-                            return CircularProgressIndicator();
+                            return new CircularProgressIndicator();
                           }
                           // return new Text('Cargando...');
                           else if (response.data.statusCode != 200) {
