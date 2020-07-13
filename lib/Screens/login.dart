@@ -9,23 +9,23 @@ import 'package:medicpucp/Screens/loader_drawer_menu.dart';
 import 'package:medicpucp/Utilities/example_page.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:medicpucp/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FancyBackgroundApp extends StatelessWidget {
-
   final myControllerUser = TextEditingController();
   final myControllerPassword = TextEditingController();
+  final myControllerRegister = TextEditingController();
 
   final LocalStorage storage = new LocalStorage('myStorageKey');
-  
 
   void redireccionar(context, http.Response response) async {
-
     String token = response.body;
 
     storage.setItem('token', token);
 
-
-    Navigator.push(context, MaterialPageRoute(builder: (context) => LoaderDrawerMenu()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoaderDrawerMenu()));
   }
 
   @override
@@ -64,6 +64,24 @@ class FancyBackgroundApp extends StatelessWidget {
       ),
     );
 
+    final registerLink = MaterialButton(
+      minWidth: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      onPressed: () {
+        _launchUrlRegister();
+      },
+      child: Text(
+        "Registrarme",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          decoration: TextDecoration.underline,
+          color: Theme.of(context).iconTheme.color,
+          fontSize: 16.0,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+    );
+
     final loginButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -91,7 +109,7 @@ class FancyBackgroundApp extends StatelessWidget {
             // var client = await oauth2.resourceOwnerPasswordGrant(
             //   authorizationEndpoint, username, password,
             //   identifier: identifier, secret: secret);
-            String url = 'https://pdm3.herokuapp.com/auth/login/';
+            String url = endpointLogIn;
             Map map = {
               "username": "$usernameText",
               "password": "$passwordText"
@@ -101,63 +119,16 @@ class FancyBackgroundApp extends StatelessWidget {
             if (response.body.toString().contains("token")) {
               redireccionar(context, response);
             } else if (response.body.toString().contains("error")) {
-              return showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // Retrieve the text the user has entered by using the
-                    // TextEditingController.
-                    content: Text(
-                      "Usuario o contraseña incorrectos.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.purpleAccent.shade700,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  );
-                },
-              );
+              return cuadroFlotante(
+                  'Error obteniendo token, error interno del servidor',
+                  context);
             } else {
-              return showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    // Retrieve the text the user has entered by using the
-                    // TextEditingController.
-                    content: Text(
-                      "Algo ha fallado en el servidor o la aplicación de manera interna. Contactar a soporte",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.purpleAccent.shade700,
-                        fontSize: 30.0,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  );
-                },
-              );
+              return cuadroFlotante(
+                  'Algo ha fallado en el servidor o la aplicación de manera interna. Contactar a soporte',
+                  context);
             }
           } else {
-            return showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  // Retrieve the text the user has entered by using the
-                  // TextEditingController.
-                  content: Text(
-                    "Usuario o contraseña incorrectos.",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.purpleAccent.shade700,
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                );
-              },
-            );
+            return cuadroFlotante("Usuario o contraseña incorrectos.", context);
           }
         },
         child: Text(
@@ -221,6 +192,7 @@ class FancyBackgroundApp extends StatelessWidget {
                       SizedBox(
                         height: 15.0,
                       ),
+                      registerLink,
                     ],
                   ),
                 ),
@@ -255,9 +227,77 @@ class FancyBackgroundDemo extends StatelessWidget {
 Future<http.Response> apiRequest(String url, Map jsonMap) async {
   var body = json.encode(jsonMap);
 
-  var response = await http.post(url,
-      headers: {"Content-Type": "application/json"}, body: body);
+  var response = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
 
   print("${response.body}");
   return response;
+}
+
+_launchUrlRegister() async {
+  const url = endpointRegister;
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'No se pudo abrir $url';
+  }
+}
+
+Text cuadroFlotanteTexto(String text, context) {
+  return Text(
+    text,
+    textAlign: TextAlign.center,
+    style: TextStyle(
+      color: Theme.of(context).iconTheme.color,
+      fontSize: 20.0,
+      // fontWeight: FontWeight.w800,
+    ),
+  );
+}
+
+AlertDialog cuadroFlotante(String text, context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false, // user must tap button!
+    builder: (context) {
+      return new AlertDialog(
+        title: Text(
+          'MedicPUCP',
+          style: TextStyle(
+            color: Theme.of(context).iconTheme.color,
+            fontSize: 20.0,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        // Retrieve the text the user has entered by using the
+        // TextEditingController.
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              cuadroFlotanteTexto(text, context),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton(
+            child: Text(
+              'Acepto',
+              style: TextStyle(
+                color: Theme.of(context).iconTheme.color,
+                fontSize: 20.0,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
+      );
+    },
+  );
 }

@@ -1,25 +1,20 @@
 import 'dart:convert';
-import 'dart:ffi';
 
-import 'package:localstorage/localstorage.dart';
 import 'package:medicpucp/GlobalVariables/globals.dart';
-import 'package:medicpucp/Screens/about.dart';
-// import 'package:medicpucp/Screens/bmi_main.dart';
-import 'package:medicpucp/Screens/settings.dart';
-// import 'package:medicpucp/Utilities/app_util.dart';
+import 'package:medicpucp/Screens/SubScreens/1.dart';
+import 'package:medicpucp/Screens/SubScreens/about.dart';
+import 'package:medicpucp/Screens/SubScreens/settings.dart';
+import 'package:medicpucp/Screens/SubScreens/alerts.dart';
 import 'package:medicpucp/Utilities/my_theme_keys.dart';
 import 'package:medicpucp/Utilities/shared_preference_handler.dart';
 import 'package:medicpucp/Utilities/theme_handler.dart';
-// import 'package:medicpucp/animations/size_transition.dart';
 import 'package:medicpucp/constants.dart';
+
 import 'package:drawerbehavior/drawerbehavior.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:launch_review/launch_review.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:medicpucp/Screens/alerts.dart';
-import 'package:medicpucp/Screens/SubScreens/1.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:http/http.dart' as http;
 
 class DrawerMenu extends StatefulWidget {
@@ -38,12 +33,12 @@ class UserDataFromJSON extends StatelessWidget {
   UserDataFromJSON(this.data);
   Widget build(BuildContext context) {
     int id = data['id'];
-    String first_name = data['first_name'];
-    String last_name = data['last_name'];
+    String firstName = data['first_name'];
+    String lastName = data['last_name'];
     String email = data['email'];
-    String name = utf8.decode(first_name.runes.toList()) +
+    String name = utf8.decode(firstName.runes.toList()) +
         ' ' +
-        utf8.decode(last_name.runes.toList());
+        utf8.decode(lastName.runes.toList());
 
     return new Text(
       ' Usuario: ${name.toString()}',
@@ -76,19 +71,18 @@ class UserKitDataFromJSON extends StatelessWidget {
   final Map<String, dynamic> data;
   UserKitDataFromJSON(this.data);
   Widget build(BuildContext context) {
-    String kit_id = data['kit_id'];
-    int user_id = data['user_id'];
+    String kitId = data['kit_id'];
+    int userId = data['user_id'];
 
-    String estado_comunicacion_estado = data['estado_comunicacion']['estado'];
+    String estadoComunicacionEstado = data['estado_comunicacion']['estado'];
 
-    double estado_bateria_medikit = data['estado_baterias']['medikit'];
-    double estado_bateria_mediband = data['estado_baterias']['mediband'];
+    double estadoBateriaMedikit = data['estado_baterias']['medikit'];
+    double estadoBateriaMediband = data['estado_baterias']['mediband'];
 
-    double tiempo_muestreo_t_pres_card = data['tiempo_muestreo']['t_pres_card'];
-    double tiempo_muestreo_t_frec_resp = data['tiempo_muestreo']['t_frec_resp'];
-    double tiempo_muestreo_t_temp_corp = data['tiempo_muestreo']['t_temp_corp'];
+    double tiempoMuestreoTPresCard = data['tiempo_muestreo']['t_pres_card'];
+    double tiempoMuestreoTFrecResp = data['tiempo_muestreo']['t_frec_resp'];
+    double tiempoMuestreoTTempCorp = data['tiempo_muestreo']['t_temp_corp'];
 
-    String kitId = kit_id;
     return new Text(
       ' Código Kit: ${kitId.toString()}',
       style: TextStyle(
@@ -169,7 +163,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   final storage = LocalStorage('myStorageKey');
 
   Future<http.Response> apiGetUserData() async {
-    String url = 'https://pdm3.herokuapp.com/auth/logged/get_data_user/';
+    String url = endpointGetDataUser;
     var tokenJson = storage.getItem('token');
     debugPrint(tokenJson);
     var body = tokenJson;
@@ -181,7 +175,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   Future<http.Response> apiGetKitData() async {
-    String url = 'https://pdm3.herokuapp.com/auth/logged/get_user_kit_data/';
+    String url =endpointGetUserKitData;
     var tokenJson = storage.getItem('token');
     debugPrint(tokenJson);
     var body = tokenJson;
@@ -339,23 +333,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ),
               ],
             ),
-            // onTap: () {
-            //   _launchURL();
-            // },
           ),
         ],
       ),
     );
   }
-
-  // _launchURL() async {
-  //   const url = 'https://nividata.com';
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

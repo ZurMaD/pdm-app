@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:launch_review/launch_review.dart';
 
-import '../constants.dart';
+import 'package:medicpucp/constants.dart';
 
 class AboutUS extends StatelessWidget {
   @override

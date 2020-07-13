@@ -2,14 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
+import 'package:medicpucp/constants.dart';
 
 class PresCard extends StatelessWidget {
   final Map<String, dynamic> data;
   PresCard(this.data);
   Widget build(BuildContext context) {
-    double p_c = data['pres_card'];
+    double pC = data['pres_card'];
     return new Text(
-      '${p_c.toStringAsFixed(2)} mmHg',
+      '${pC.toStringAsFixed(2)} mmHg',
       style: TextStyle(
         fontSize: 60.0,
         fontWeight: FontWeight.w900,
@@ -23,9 +25,9 @@ class FrecResp extends StatelessWidget {
   final Map<String, dynamic> data;
   FrecResp(this.data);
   Widget build(BuildContext context) {
-    double f_r = data['frec_resp'];
+    double fR = data['frec_resp'];
     return new Text(
-      '${f_r.toStringAsFixed(2)} resp/m',
+      '${fR.toStringAsFixed(2)} resp/m',
       style: TextStyle(
         fontSize: 60.0,
         fontWeight: FontWeight.w900,
@@ -39,9 +41,9 @@ class TempCorp extends StatelessWidget {
   final Map<String, dynamic> data;
   TempCorp(this.data);
   Widget build(BuildContext context) {
-    double t_c = data['temp_corp'];
+    double tC = data['temp_corp'];
     return new Text(
-      '${t_c.toStringAsFixed(2)} °C',
+      '${tC.toStringAsFixed(2)} °C',
       style: TextStyle(
         fontSize: 60.0,
         fontWeight: FontWeight.w900,
@@ -56,9 +58,9 @@ class FirstPage extends StatefulWidget {
 }
 
 class FirstPageState extends State<FirstPage> {
+
   Future<http.Response> _response;
-  // Future<http.Response> _response2;
-  // Future<http.Response> _response3;
+  final storage = LocalStorage('myStorageKey');
 
   void initState() {
     super.initState();
@@ -68,8 +70,15 @@ class FirstPageState extends State<FirstPage> {
   void _refresh() {
     setState(
       () {
-        _response =
-            http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
+        // _response =http.get('https://pdm3.herokuapp.com/api/last_data/?format=json');
+        String url = endpointLastDataByUser;
+        var tokenJson = storage.getItem('token');
+        debugPrint(tokenJson);
+        var body = tokenJson;
+
+        _response = http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+        // print("${response.body}");
+        
       },
     );
   }

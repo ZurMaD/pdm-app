@@ -10,7 +10,7 @@ import 'package:flutter_responsive_screen/flutter_responsive_screen.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // import '../calculator_brain.dart';
-import '../constants.dart';
+import 'package:medicpucp/constants.dart';
 import 'package:medicpucp/GlobalVariables/globals.dart';
 
 // import 'package:medicpucp/Screens/alerts.dart';
