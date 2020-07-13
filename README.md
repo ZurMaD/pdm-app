@@ -14,7 +14,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/Fenil-Nividata/FlutterBMI/blob/master/">
+  <a href="#">
     <img src="mp_launcher.png">
   </a>
 
@@ -70,7 +70,7 @@ This application built [Flutter](https://flutter.dev/). Flutter is cross-platfor
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/Fenil-Nividata/FlutterBMI/issues) for a list of proposed features (and known issues).
+See the [open issues](#) for a list of proposed features (and known issues).
 
 
 <!-- CONTRIBUTING -->
@@ -108,7 +108,7 @@ Contact: [LinkedIn](https://www.linkedin.com/in/fenilpatel23/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+<!-- [contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
 [contributors-url]: https://github.com/Fenil-Nividata/FlutterBMI/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
 [forks-url]: https://github.com/Fenil-Nividata/FlutterBMI/network/members
@@ -120,6 +120,6 @@ Contact: [LinkedIn](https://www.linkedin.com/in/fenilpatel23/)
 [license-url]: https://github.com/Fenil-Nividata/FlutterBMI/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://in.linkedin.com/company/nividataconsultancy
-[product-screenshot]: https://github.com/Fenil-Nividata/FlutterBMI/blob/master/banner_new3.jpg
+[product-screenshot]: https://github.com/Fenil-Nividata/FlutterBMI/blob/master/banner_new3.jpg -->
 
 

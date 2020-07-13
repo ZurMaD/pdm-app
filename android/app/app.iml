@@ -127,7 +127,7 @@
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:runner:1.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test:monitor:1.1.0@aar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: androidx.test.espresso:espresso-idling-resource:3.1.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/home/nividata/flutter/bin/cache/artifacts/engine/android-arm64/flutter.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: __local_aars__:/home/nividata/Documents/Android/Flutter/Project/BMI project/FlutterBMI/build/app/intermediates/flutter/debug/libs.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/home/pablogod/flutter/bin/cache/artifacts/engine/android-arm64/flutter.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="Gradle: __local_aars__:/home/pablogod/Documents/Android/Flutter/Project/BMI project/FlutterBMI/build/app/intermediates/flutter/debug/libs.jar:unspecified@jar" level="project" />
   </component>
 </module>

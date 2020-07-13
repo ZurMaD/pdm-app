@@ -1,4 +1,4 @@
-package com.nividata.bmi_calculator;
+package com.pablogod.medicpucp;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

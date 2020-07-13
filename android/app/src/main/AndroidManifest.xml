@@ -1,5 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nividata.bmi_calculator">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.pablogod.medicpucp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

@@ -50,8 +50,8 @@
       <list>
         <option value="$PROJECT_DIR$/app/app.iml" />
         <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____home_nividata_Documents_Android_Flutter_Project_BMI_project_FlutterBMI_build_app_intermediates_flutter_debug_libs_jar_unspecified_jar.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____home_nividata_flutter_bin_cache_artifacts_engine_android_arm64_flutter_jar_unspecified_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____home_medicpucp_Documents_Android_Flutter_Project_MP_project_FlutterMP_build_app_intermediates_flutter_debug_libs_jar_unspecified_jar.xml" />
+        <option value="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars____home_medicpucp_flutter_bin_cache_artifacts_engine_android_arm64_flutter_jar_unspecified_jar.xml" />
         <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_27_1_1_jar.xml" />
         <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_2_aar.xml" />
         <option value="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_2_aar.xml" />
