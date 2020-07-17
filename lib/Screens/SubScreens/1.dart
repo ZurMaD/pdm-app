@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:medicpucp/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class PresCard extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -13,7 +14,7 @@ class PresCard extends StatelessWidget {
     return new Text(
       '${pC.toStringAsFixed(2)} mmHg',
       style: TextStyle(
-        fontSize: 60.0,
+        fontSize: 45.0,
         fontWeight: FontWeight.w900,
         color: Theme.of(context).accentColor,
       ),
@@ -29,7 +30,7 @@ class FrecResp extends StatelessWidget {
     return new Text(
       '${fR.toStringAsFixed(2)} resp/m',
       style: TextStyle(
-        fontSize: 60.0,
+        fontSize: 45.0,
         fontWeight: FontWeight.w900,
         color: Theme.of(context).accentColor,
       ),
@@ -45,7 +46,7 @@ class TempCorp extends StatelessWidget {
     return new Text(
       '${tC.toStringAsFixed(2)} °C',
       style: TextStyle(
-        fontSize: 60.0,
+        fontSize: 45.0,
         fontWeight: FontWeight.w900,
         color: Theme.of(context).accentColor,
       ),
@@ -58,7 +59,6 @@ class FirstPage extends StatefulWidget {
 }
 
 class FirstPageState extends State<FirstPage> {
-
   Future<http.Response> _response;
   final storage = LocalStorage('myStorageKey');
 
@@ -76,9 +76,9 @@ class FirstPageState extends State<FirstPage> {
         debugPrint(tokenJson);
         var body = tokenJson;
 
-        _response = http.post(url, headers: {"Content-Type": "application/json"}, body: body);
+        _response = http.post(url,
+            headers: {"Content-Type": "application/json"}, body: body);
         // print("${response.body}");
-        
       },
     );
   }
@@ -105,41 +105,59 @@ class FirstPageState extends State<FirstPage> {
                 // size: Size(160, 200),
                 child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      image: new ExactAssetImage('Assets/Images/heart.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  // decoration: new BoxDecoration(
+                  // image: new DecorationImage(
+                  //   image: new ExactAssetImage('Assets/Images/heart.jpg'),
+                  //   fit: BoxFit.cover,
+                  // ),
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new Text(
-                        'Presión arterial',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w900,
-                          color: Theme.of(context).accentColor,
-                        ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, //Center Row contents horizontally
+                        crossAxisAlignment: CrossAxisAlignment
+                            .center, //Center Row contents vertically
+                        children: <Widget>[
+                          new Text(
+                            'Presión arterial',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                          new IconButton(
+                            // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                            icon: FaIcon(FontAwesomeIcons.heartbeat),
+                            onPressed: () {
+                              debugPrint("Pressed");
+                            },
+                          )
+                        ],
                       ),
                       new FutureBuilder(
                         future: _response,
-                        builder:  (BuildContext context, AsyncSnapshot<http.Response> response) {
-                          debugPrint(response.data.body);
+                        builder: (BuildContext context,
+                            AsyncSnapshot<http.Response> response) {
+                          // debugPrint(response.data.body);
                           if (!response.hasData) {
-                            // By default, show a loading spinner. 
+                            // By default, show a loading spinner.
                             return CircularProgressIndicator();
-                          }
-                          else if (response.data.statusCode != 200) {
-                            return new Text( 'No pudimos conectarnos al servidor');
+                          } else if (response.data.statusCode != 200) {
+                            return new Text(
+                                'No pudimos conectarnos al servidor');
                           } else {
-                            Map<String, dynamic> json1 = json.decode(response.data.body)[0];
+                            Map<String, dynamic> json1 =
+                                json.decode(response.data.body)[0];
                             if (json1['time'] != '') {
                               return new PresCard(json1);
                             } else {
-                              return new Text('Error getting column, JSON is  $json1.');
+                              return new Text(
+                                  'Error getting column, JSON is  $json1.');
                             }
                           }
                         },
@@ -159,30 +177,45 @@ class FirstPageState extends State<FirstPage> {
                 // size: Size(160, 200),
                 child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      image: new ExactAssetImage('Assets/Images/frec.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                  // decoration: new BoxDecoration(
+                  // image: new DecorationImage(
+                  //   image: new ExactAssetImage('Assets/Images/frec.jpg'),
+                  //   fit: BoxFit.cover,
+                  // ),
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
                   child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new Text(
-                        'Presión arterial',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w900,
-                          color: Theme.of(context).accentColor,
-                        ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, //Center Row contents horizontally
+                        crossAxisAlignment: CrossAxisAlignment
+                            .center, //Center Row contents vertically
+                        children: <Widget>[
+                          new Text(
+                            'Frecuencia respiratoria',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                          new IconButton(
+                            // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                            icon: FaIcon(FontAwesomeIcons.lungs),
+                            onPressed: () {
+                              debugPrint("Pressed");
+                            },
+                          )
+                        ],
                       ),
                       new FutureBuilder(
                         future: _response,
                         builder: (BuildContext context,
                             AsyncSnapshot<http.Response> response) {
-                          debugPrint(response.data.body);
+                          // debugPrint(response.data.body);
                           if (!response.hasData) {
                             // By default, show a loading spinner.
                             return new CircularProgressIndicator();
@@ -218,30 +251,45 @@ class FirstPageState extends State<FirstPage> {
                 // size: Size(160, 200),
                 child: new Container(
                   padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
-                  decoration: new BoxDecoration(
-                    image: new DecorationImage(
-                      image: new ExactAssetImage('Assets/Images/term.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child:new Column(
+                  // decoration: new BoxDecoration(
+                  // image: new DecorationImage(
+                  //   image: new ExactAssetImage('Assets/Images/term.jpg'),
+                  //   fit: BoxFit.cover,
+                  // ),
+                  //   borderRadius: BorderRadius.circular(10),
+                  // ),
+                  child: new Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      new Text(
-                        'Presión arterial',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w900,
-                          color: Theme.of(context).accentColor,
-                        ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .center, //Center Row contents horizontally
+                        crossAxisAlignment: CrossAxisAlignment
+                            .center, //Center Row contents vertically
+                        children: <Widget>[
+                          new Text(
+                            'Temperatura corporal',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w900,
+                              color: Theme.of(context).accentColor,
+                            ),
+                          ),
+                          new IconButton(
+                            // Use the FaIcon Widget + FontAwesomeIcons class for the IconData
+                            icon: FaIcon(FontAwesomeIcons.thermometerHalf),
+                            onPressed: () {
+                              debugPrint("Pressed");
+                            },
+                          )
+                        ],
                       ),
                       new FutureBuilder(
                         future: _response,
                         builder: (BuildContext context,
                             AsyncSnapshot<http.Response> response) {
-                          debugPrint(response.data.body);
+                          // debugPrint(response.data.body);
                           if (!response.hasData) {
                             // By default, show a loading spinner.
                             return new CircularProgressIndicator();

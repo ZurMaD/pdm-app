@@ -6,12 +6,14 @@ const Color kActiveCardColor = Color(0xFF1D1E33);
 const Color kInactiveCardColor = Color(0xFF111328);
 String platformVersion = "";
 Icon themeIcon;
-const serverDomain="https://pdm3.herokuapp.com/";
-const endpointRegister=serverDomain+"accounts/register/";
-const endpointLastDataByUser=serverDomain+'api/last_data_by_user/';
-const endpointLogIn=serverDomain+'auth/login/';
-const endpointGetDataUser=serverDomain + 'auth/logged/get_data_user/';
-const endpointGetUserKitData= serverDomain + 'auth/logged/get_user_kit_data/';
+const serverDomain = "https://pdm3.herokuapp.com/";
+
+const endpointRegister = serverDomain + "accounts/register/";
+const endpointLastDataByUser = serverDomain + "api/last_data_by_user/";
+const endpointLogIn = serverDomain + "auth/login/";
+const endpointGetDataUser = serverDomain + "auth/logged/get_data_user/";
+const endpointGetUserKitData = serverDomain + "auth/logged/get_user_kit_data/";
+const endpointGetNotificationsPerUser = serverDomain + "auth/logged/get_notifications_per_kit_id/";
 
 const kLabelTextStyle = TextStyle(
   fontSize: 20.0,

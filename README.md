@@ -15,7 +15,7 @@
 
   <p align="center">
     <br />
-    <a href="#">View Demo </a>(Playstore publish pending)
+    <a href="https://play.google.com/store/apps/details?id=com.pablogod.medicpucp">View Demo </a>(Playstore publish pending)
     ·
     <a href="#">Report Bug</a>
     ·

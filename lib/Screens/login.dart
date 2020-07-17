@@ -67,7 +67,7 @@ class FancyBackgroundApp extends StatelessWidget {
     final registerLink = MaterialButton(
       minWidth: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-      onPressed: () {
+      onPressed: () {        
         _launchUrlRegister();
       },
       child: Text(
@@ -98,10 +98,10 @@ class FancyBackgroundApp extends StatelessWidget {
             str = myControllerUser.text.length.toString();
             str2 = myControllerPassword.text.length.toString();
 
-            debugPrint(myControllerUser.text);
-            debugPrint(str);
-            debugPrint(myControllerPassword.text);
-            debugPrint(str2);
+            // debugPrint(myControllerUser.text);
+            // debugPrint(str);
+            // debugPrint(myControllerPassword.text);
+            // debugPrint(str2);
 
             final usernameText = myControllerUser.text;
             final passwordText = myControllerPassword.text;
@@ -115,7 +115,9 @@ class FancyBackgroundApp extends StatelessWidget {
               "password": "$passwordText"
             };
             debugPrint(map.toString());
+            cuadroFlotante('Iniciando sesión.....',context);
             var response = await apiRequest(url, map);
+            
             if (response.body.toString().contains("token")) {
               redireccionar(context, response);
             } else if (response.body.toString().contains("error")) {
@@ -229,7 +231,7 @@ Future<http.Response> apiRequest(String url, Map jsonMap) async {
 
   var response = await http.post(url, headers: {"Content-Type": "application/json"}, body: body);
 
-  print("${response.body}");
+  // print("${response.body}");
   return response;
 }
 

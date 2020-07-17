@@ -70,6 +70,7 @@ class UserKitDataFromJSON extends StatelessWidget {
   // }
   final Map<String, dynamic> data;
   UserKitDataFromJSON(this.data);
+
   Widget build(BuildContext context) {
     String kitId = data['kit_id'];
     int userId = data['user_id'];
@@ -175,9 +176,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   Future<http.Response> apiGetKitData() async {
-    String url =endpointGetUserKitData;
+
+    String url = endpointGetUserKitData;
     var tokenJson = storage.getItem('token');
-    debugPrint(tokenJson);
+    debugPrint('apiGetKitData'+tokenJson);
     var body = tokenJson;
 
     var response = await http.post(url,
@@ -224,7 +226,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
             future: apiGetUserData(),
             builder:
                 (BuildContext context, AsyncSnapshot<http.Response> response) {
-              debugPrint(response.data.body);
+              // debugPrint(response.data.body);
               if (!response.hasData) {
                 // By default, show a loading spinner.
                 return CircularProgressIndicator();
@@ -244,19 +246,19 @@ class _DrawerMenuState extends State<DrawerMenu> {
             future: apiGetKitData(),
             builder:
                 (BuildContext context, AsyncSnapshot<http.Response> response) {
-              debugPrint(response.data.body);
+              // debugPrint(response.data.body);
               if (!response.hasData) {
                 // By default, show a loading spinner.
                 return CircularProgressIndicator();
               } else if (response.data.statusCode != 200) {
                 return new Text('No pudimos conectarnos al servidor');
               } else {
-                Map<String, dynamic> json4 = json.decode(response.data.body);
-                if (json4['kit_id'] != '') {
-                  storage.setItem('kit_id', json4['kit_id']);
-                  return new UserKitDataFromJSON(json4);
+                Map<String, dynamic> jsonx = json.decode(response.data.body);
+                if (jsonx['kit_id'] != '') {
+                  storage.setItem('kit_id', jsonx['kit_id']);
+                  return new UserKitDataFromJSON(jsonx);
                 } else {
-                  return new Text('Error getting column, JSON is  $json4.');
+                  return new Text('Error getting column, JSON is  $jsonx.');
                 }
               }
             },
